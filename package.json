@@ -1,0 +1,40 @@
+{
+  "name": "shoka-gallery",
+  "version": "1.0.0",
+  "description": "Super simple headless image gallery",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "author": {
+    "name": "Ákos Stégner",
+    "email": "akos.stegner@gmail.com"
+  },
+  "scripts": {
+    "build": "unbuild",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "vue",
+    "headless",
+    "composition",
+    "api"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "vue": "^3.2.45"
+  },
+  "devDependencies": {
+    "unbuild": "^1.0.2"
+  }
+}
