@@ -19,10 +19,12 @@
   },
   "scripts": {
     "build": "unbuild",
+    "play": "pnpm run -C playground dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
   "keywords": [
     "vue",
@@ -36,5 +38,6 @@
   },
   "devDependencies": {
     "unbuild": "^1.0.2"
-  }
+  },
+  "homepage": "https://github.com/Sokamoka/shoka-gallery#readme"
 }
