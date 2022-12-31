@@ -39,5 +39,12 @@
   "devDependencies": {
     "unbuild": "^1.0.2"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sokamoka/shoka-gallery.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Sokamoka/shoka-gallery/issues"
+  },
   "homepage": "https://github.com/Sokamoka/shoka-gallery#readme"
 }
