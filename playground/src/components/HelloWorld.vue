@@ -95,19 +95,45 @@ const count = ref(0)
       </GalleryItem>
     </Gallery>
 
-    <Gallery class="grid grid-rows-6 grid-cols-2 grid-flow-col mt-20" v-slot:default="{ id, src }">
-      <div class="row-span-6 object-cover overflow-hidden">
-        <img :src="src" :key="id" />
+    <h1 class="text-3xl font-bold tracking-tight text-gray-900 my-8">Without modal</h1>
+    <div class="grid grid-cols-2">
+      <Gallery class="grid grid-cols-4 gap-2" v-slot:default="{ isLoading }">
+        <div class="col-span-4 object-cover overflow-hidden aspect-square relative bg-gray-200 rounded-xl">
+          <GalleryImage
+            :class="['block transition-opacity duration-200 ease-out', isLoading ? 'opacity-0' : 'opacity-1']"
+          >
+            <svg
+              class="absolute top-1/2 left-1/2 animate-spin h-8 w-8 text-gray-700 origin-center"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+          </GalleryImage>
+        </div>
+        <GalleryItem tag="a" href="#" src="https://picsum.photos/id/11/600/600" alt="Lorem ipsum">
+          <img src="https://picsum.photos/id/11/200/200" class="rounded-md" />
+        </GalleryItem>
+        <GalleryItem tag="a" href="#" src="https://picsum.photos/id/12/600/600" alt="Lorem ipsum2">
+          <img src="https://picsum.photos/id/12/200/200" class="rounded-md" />
+        </GalleryItem>
+        <GalleryItem tag="a" href="#" src="https://picsum.photos/id/13/600/600" alt="Lorem ipsum3">
+          <img src="https://picsum.photos/id/13/200/200" class="rounded-md" />
+        </GalleryItem>
+        <GalleryItem tag="a" href="#" src="https://picsum.photos/id/14/600/600" alt="Lorem ipsum3">
+          <img src="https://picsum.photos/id/14/200/200" class="rounded-md" />
+        </GalleryItem>
+      </Gallery>
+
+      <div>
+        Lorem ipsum
       </div>
-      <GalleryItem tag="a" href="#" src="https://picsum.photos/id/11/600/600" alt="Lorem ipsum" class="w-32 h-32">
-        <img src="https://picsum.photos/id/11/200/200" />
-      </GalleryItem>
-      <GalleryItem tag="a" href="#" src="https://picsum.photos/id/12/600/600" alt="Lorem ipsum2" class="w-32 h-32">
-        <img src="https://picsum.photos/id/12/200/200" />
-      </GalleryItem>
-      <GalleryItem tag="a" href="#" src="https://picsum.photos/id/13/600/600" alt="Lorem ipsum3" class="w-32 h-32">
-        <img src="https://picsum.photos/id/13/200/200" />
-      </GalleryItem>
-    </Gallery>
+    </div>
   </div>
 </template>
