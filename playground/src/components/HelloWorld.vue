@@ -1,14 +1,55 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import { Icon } from '@iconify/vue'
 
-defineProps<{ msg: string }>()
+const images = ref([
+  {
+    thumb: 'https://picsum.photos/id/11/200/200',
+    title: 'Lorem ipsum 1',
+    image: 'https://picsum.photos/id/11/600/600',
+  },
+  {
+    thumb: 'https://picsum.photos/id/12/200/200',
+    title: 'Lorem ipsum 2',
+    image: 'https://picsum.photos/id/12/600/600',
+  },
+  {
+    thumb: 'https://picsum.photos/id/13/200/200',
+    title: 'Lorem ipsum 3',
+    image: 'https://picsum.photos/id/13/600/600',
+  },
+  {
+    thumb: 'https://picsum.photos/id/14/200/200',
+    title: 'Lorem ipsum 4',
+    image: 'https://picsum.photos/id/14/600/600',
+  },
+  {
+    thumb: 'https://picsum.photos/id/15/200/200',
+    title: 'Lorem ipsum 5',
+    image: 'https://picsum.photos/id/15/600/600',
+  },
+  {
+    thumb: 'https://picsum.photos/id/16/200/200',
+    title: 'Lorem ipsum 6',
+    image: 'https://picsum.photos/id/16/600/600',
+  },
+])
 
-const count = ref(0)
+const isGalleryOpen = ref(false)
+
+watch(isGalleryOpen, (isOpen) => {
+  if (isOpen) {
+    document.body.classList.add('overflow-hidden')
+    return
+  }
+  document.body.classList.remove('overflow-hidden')
+})
 </script>
 
 <template>
   <div class="max-w-7xl mx-auto">
-    <Gallery v-slot:default="{ open }" class="grid grid-cols-6 gap-2">
+    <h1 class="text-3xl font-bold tracking-tight text-gray-900 my-8">With modal dialog</h1>
+    <Gallery v-model="isGalleryOpen" v-slot:default="{ open }" class="grid grid-cols-6 gap-2 mb-20">
       <Teleport to="body">
         <transition name="fade" mode="in-out">
           <GalleryPanel
@@ -21,7 +62,7 @@ const count = ref(0)
               class="absolute top-2 right-4 rounded-full bg-white hover:bg-rose-600 hover:text-white shadow-md p-2 cursor-pointer z-20"
               @click="close()"
             >
-              Close
+              <Icon icon="mdi:close" class="w-5 h-5" />
             </button>
 
             <GalleryImage
@@ -47,18 +88,18 @@ const count = ref(0)
 
             <button
               v-if="!isStartIndex"
-              class="absolute left-4 top-1/2 rounded-full bg-white hover:bg-rose-600 hover:text-white shadow-md p-2 cursor-pointer z-20"
+              class="absolute left-4 top-1/2 rounded-full bg-white hover:bg-rose-600 hover:text-white shadow-md p-1 cursor-pointer z-20"
               @click="prev()"
             >
-              Prev
+              <Icon icon="mdi:chevron-left" class="w-8 h-8" />
             </button>
 
             <button
               v-if="!isEndIndex"
-              class="absolute right-4 top-1/2 rounded-full bg-white hover:bg-rose-600 hover:text-white shadow-md p-2 cursor-pointer z-20"
+              class="absolute right-4 top-1/2 rounded-full bg-white hover:bg-rose-600 hover:text-white shadow-md p-1 cursor-pointer z-20"
               @click="next()"
             >
-              Next
+              <Icon icon="mdi:chevron-right" class="w-8 h-8" />
             </button>
 
             <div
@@ -96,7 +137,7 @@ const count = ref(0)
     </Gallery>
 
     <h1 class="text-3xl font-bold tracking-tight text-gray-900 my-8">Without modal</h1>
-    <div class="grid grid-cols-2">
+    <div class="grid grid-cols-2 gap-5">
       <Gallery class="grid grid-cols-4 gap-2" v-slot:default="{ isLoading }">
         <div class="col-span-4 object-cover overflow-hidden aspect-square relative bg-gray-200 rounded-xl">
           <GalleryImage
@@ -117,21 +158,15 @@ const count = ref(0)
             </svg>
           </GalleryImage>
         </div>
-        <GalleryItem tag="a" href="#" src="https://picsum.photos/id/11/600/600" alt="Lorem ipsum">
-          <img src="https://picsum.photos/id/11/200/200" class="rounded-md" />
-        </GalleryItem>
-        <GalleryItem tag="a" href="#" src="https://picsum.photos/id/12/600/600" alt="Lorem ipsum2">
-          <img src="https://picsum.photos/id/12/200/200" class="rounded-md" />
-        </GalleryItem>
-        <GalleryItem tag="a" href="#" src="https://picsum.photos/id/13/600/600" alt="Lorem ipsum3">
-          <img src="https://picsum.photos/id/13/200/200" class="rounded-md" />
-        </GalleryItem>
-        <GalleryItem tag="a" href="#" src="https://picsum.photos/id/14/600/600" alt="Lorem ipsum3">
-          <img src="https://picsum.photos/id/14/200/200" class="rounded-md" />
-        </GalleryItem>
+        <template v-for="{ thumb, title, image } in images" :key="thumb">
+          <GalleryItem tag="a" href="#" :src="image" :alt="title" v-slot="{ selected }">
+            <img :src="thumb" :class="['rounded-md', { 'outline outline-2 outline-indigo-500 outline-offset-1': selected }]" />
+          </GalleryItem>
+        </template>
       </Gallery>
 
       <div>
+        <h1 class="text-2xl font-bold tracking-tight text-gray-900">Product</h1>
         Lorem ipsum
       </div>
     </div>
