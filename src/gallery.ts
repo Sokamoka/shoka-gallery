@@ -12,6 +12,9 @@ import {
   InjectionKey,
   Ref,
   ComputedRef,
+  watchEffect,
+  onUpdated,
+  watch,
 } from 'vue'
 
 interface GalleryItem {
@@ -59,11 +62,16 @@ export const Gallery = defineComponent({
       type: [String, Object],
       default: 'div',
     },
+
+    modelValue: {
+      type: Boolean,
+      default: false,
+    },
   },
 
-  setup(props, { slots }) {
+  setup(props, { emit, slots }) {
     const items = ref<GalleryItem[]>([])
-    const isOpen = ref(false)
+    const isOpen = ref(props.modelValue)
     const currentIndex = ref(0)
     const isLoading = ref(false)
 
@@ -85,21 +93,24 @@ export const Gallery = defineComponent({
       open(id: string) {
         currentIndex.value = items.value.findIndex((item: GalleryItem) => item.id === id) || 0
         isOpen.value = true
-        isLoading.value = true
+        emit('update:modelValue', true)
+        // if (currentItem.value?.id === id) return
+        // isLoading.value = true
       },
       close() {
         isOpen.value = false
+        emit('update:modelValue', false)
         nextTick(() => currentItem.value.itemRef?.focus())
       },
       next() {
         if (currentIndex.value === items.value.length - 1) return
         currentIndex.value = currentIndex.value + 1
-        isLoading.value = true
+        // isLoading.value = true
       },
       prev() {
         if (currentIndex.value === 0) return
         currentIndex.value = currentIndex.value - 1
-        isLoading.value = true
+        // isLoading.value = true
       },
     }
 
@@ -109,7 +120,7 @@ export const Gallery = defineComponent({
       const slot = {
         open: isOpen.value,
         isLoading: isLoading.value,
-        currentIndex: currentIndex.value, // Todo: Start/End
+        currentIndex: currentIndex.value,
         isStartIndex: api.isStartIndex.value,
         isEndIndex: api.isEndIndex.value,
         close: () => api.close(),
@@ -210,6 +221,8 @@ export const GalleryItem = defineComponent({
 
     const id = self.crypto.randomUUID()
 
+    const isSelected = computed(() => api.currentItem.value?.id === id)
+
     onMounted(() => api.registerImage({ id, src: props.src, alt: props.alt, itemRef: itemRef.value }))
     onUnmounted(() => api.unregisterImage(id))
 
@@ -228,13 +241,17 @@ export const GalleryItem = defineComponent({
     }
 
     return () => {
+      const slot = {
+        selected: isSelected.value,
+      }
+
       const ourProps = {
         id: id,
         ref: itemRef,
         onClick,
         onKeydown,
       }
-      return h(props.tag, ourProps, slots.default?.())
+      return h(props.tag, ourProps, slots.default?.(slot))
     }
   },
 })
@@ -247,6 +264,14 @@ export const GalleryImage = defineComponent({
   setup(_, { emit, slots, attrs }) {
     const api = useGalleryContext('GalleryImage')
 
+    watch(
+      () => api.currentIndex.value,
+      (current, previous) => {
+        if (current === previous) return
+        api.isLoading.value = true
+      }
+    )
+
     const onLoad = (event: Event) => {
       api.isLoading.value = false
       emit('load', event)
@@ -256,6 +281,11 @@ export const GalleryImage = defineComponent({
       api.isLoading.value = false
       emit('error', event)
     }
+
+    onMounted(() => {
+      api.isLoading.value = true
+    })
+
     return () => [
       api.isLoading.value ? slots.default?.() : null,
       h('img', {
