@@ -55,7 +55,7 @@ watch(isGalleryOpen, (isOpen) => {
           <GalleryPanel
             v-if="open"
             class="fixed flex flex-col items-center justify-center inset-0 z-50"
-            v-slot:default="{ isLoading, title, isStartIndex, isEndIndex, close, next, prev }"
+            v-slot:default="{ isLoading, isStartIndex, isEndIndex, close, next, prev }"
           >
             <div class="fixed bg-white/80 backdrop-blur-sm inset-0 -z-10" />
             <button
@@ -102,13 +102,9 @@ watch(isGalleryOpen, (isOpen) => {
               <Icon icon="mdi:chevron-right" class="w-8 h-8" />
             </button>
 
-            <div
-              v-if="title"
+            <GalleryTitle
               class="absolute bottom-2 left-1/2 bg-rose-600 rounded-full shadow-md text-white text-sm font-medium transform -translate-x-1/2 px-5 py-2"
-              aria-live="assertive"
-            >
-              {{ title }}
-            </div>
+            />
           </GalleryPanel>
         </transition>
       </Teleport>
@@ -125,7 +121,6 @@ watch(isGalleryOpen, (isOpen) => {
         tabindex="0"
         src="https://picsum.photos/id/29/640/640"
         alt="Pellentesque in ipsum id orci porta dapibus."
-        title="Pellentesque in ipsum id orci porta dapibus."
         class="cursor-pointer"
       >
         <img src="https://picsum.photos/id/29/250/250" />
@@ -196,6 +191,8 @@ watch(isGalleryOpen, (isOpen) => {
           <GalleryItem tag="a" href="#" :src="image" :alt="title" v-slot="{ selected }">
             <img
               :src="thumb"
+              :alt="title"
+              :title="title"
               :class="['rounded-md', { 'outline outline-2 outline-indigo-500 outline-offset-1': selected }]"
             />
           </GalleryItem>

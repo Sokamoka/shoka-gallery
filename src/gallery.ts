@@ -18,8 +18,8 @@ import {
 interface GalleryItem {
   id: string
   src: string
-  alt: string
-  title: string
+  alt?: string
+  title?: string
   itemRef: HTMLElement | null
 }
 
@@ -181,7 +181,7 @@ export const GalleryPanel = defineComponent({
         ref: galleryPanelRef,
         role: 'dialog',
         'aria-modal': api.isOpen.value,
-        'aria-label': api.currentItem.value?.alt,
+        'aria-labelby': `title-${api.currentItem.value?.id}`,
         tabindex: 0,
         onKeydown,
       }
@@ -294,11 +294,36 @@ export const GalleryImage = defineComponent({
         ...attrs,
         src: api.currentItem.value?.src,
         alt: api.currentItem.value?.alt,
+        title: api.currentItem.value?.title,
         key: api.currentItem.value?.id,
         height: api.isLoading.value ? 0 : null,
         width: api.isLoading.value ? 0 : null,
         onLoading,
       }),
     ]
+  },
+})
+
+export const GalleryTitle = defineComponent({
+  name: 'GalleryTitle',
+
+  props: {
+    tag: {
+      type: [String, Object],
+      default: 'div',
+    },
+  },
+
+  setup(props) {
+    const api = useGalleryContext('GalleryTitle')
+
+    return () =>
+      api.currentItem.value?.title
+        ? h(
+            props.tag,
+            { 'aria-live': 'assertive', id: `title-${api.currentItem.value?.id}` },
+            api.currentItem.value?.title
+          )
+        : null
   },
 })
