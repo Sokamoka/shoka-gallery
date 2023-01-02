@@ -105,33 +105,59 @@ watch(isGalleryOpen, (isOpen) => {
             <div
               v-if="alt"
               class="absolute bottom-2 left-1/2 bg-rose-600 rounded-full shadow-md text-white text-sm font-medium transform -translate-x-1/2 px-5 py-2"
+              aria-live="assertive"
             >
               {{ alt }}
             </div>
           </GalleryPanel>
         </transition>
       </Teleport>
-      <GalleryItem tabindex="0" src="https://picsum.photos/id/28/640/640" alt="Lorem ipsum" class="cursor-pointer">
+      <GalleryItem
+        tabindex="0"
+        src="https://picsum.photos/id/28/640/640"
+        alt="Donec sollicitudin molestie malesuada."
+        class="cursor-pointer"
+      >
         <img src="https://picsum.photos/id/28/250/250" />
       </GalleryItem>
       <GalleryItem
         tabindex="0"
         src="https://picsum.photos/id/29/640/640"
-        alt="Lorem ipsum dolor"
+        alt="Pellentesque in ipsum id orci porta dapibus."
         class="cursor-pointer"
       >
         <img src="https://picsum.photos/id/29/250/250" />
       </GalleryItem>
-      <GalleryItem tabindex="0" src="https://picsum.photos/id/10/640/640" alt="Lorem ipsum" class="cursor-pointer">
+      <GalleryItem
+        tabindex="0"
+        src="https://picsum.photos/id/10/640/640"
+        alt="Curabitur aliquet quam id dui posuere blandit."
+        class="cursor-pointer"
+      >
         <img src="https://picsum.photos/id/10/250/250" />
       </GalleryItem>
-      <GalleryItem tabindex="0" src="https://picsum.photos/id/12/640/640" alt="Lorem ipsum" class="cursor-pointer">
+      <GalleryItem
+        tabindex="0"
+        src="https://picsum.photos/id/12/640/640"
+        alt="Pellentesque in ipsum id orci porta dapibus."
+        class="cursor-pointer"
+      >
         <img src="https://picsum.photos/id/12/250/250" />
       </GalleryItem>
-      <GalleryItem tabindex="0" src="https://picsum.photos/id/14/640/640" alt="Lorem ipsum" class="cursor-pointer">
+      <GalleryItem
+        tabindex="0"
+        src="https://picsum.photos/id/14/640/640"
+        alt="Praesent sapien massa, convallis a pellentesque nec, egestas non nisi."
+        class="cursor-pointer"
+      >
         <img src="https://picsum.photos/id/14/250/250" />
       </GalleryItem>
-      <GalleryItem tabindex="0" src="https://picsum.photos/id/16/640/640" alt="Lorem ipsum" class="cursor-pointer">
+      <GalleryItem
+        tabindex="0"
+        src="https://picsum.photos/id/16/640/640"
+        alt="Donec sollicitudin molestie malesuada."
+        class="cursor-pointer"
+      >
         <img src="https://picsum.photos/id/16/250/250" />
       </GalleryItem>
     </Gallery>
