@@ -3,6 +3,7 @@
 Super simple a11y headless image gallery for Vue users
 
 ## Installation
+
 ```sh
 # npm:
 npm install shoka-gallery
@@ -30,58 +31,39 @@ app.mount('#app')
 
 ```vue
 <script setup>
-  import { Gallery, GalleryItem, GalleryPanel, GalleryImage } from 'shoka-gallery'
+import { Gallery, GalleryItem, GalleryPanel, GalleryImage, GalleryTitle } from 'shoka-gallery'
 </script>
 <template>
-  <Gallery v-slot:default="{ open }" class="grid grid-cols-3">
-    <GalleryPanel
-      v-if="open"
-      v-slot:default="{ isLoading, alt, isStartIndex, isEndIndex, close, next, prev }"
-    >
-      <div class="fixed bg-white/80 backdrop-blur-sm inset-0 -z-10" />
-      <button
-        @click="close()"
-      >
-        Close
-      </button>
-
-      <GalleryImage>
-        Loading....
-      </GalleryImage>
-
-      <button
-        v-if="!isStartIndex"
-        @click="prev()"
-      >
-        Prev
-      </button>
-
-      <button
-        v-if="!isEndIndex"
-        @click="next()"
-      >
-        Next
-      </button>
-
-      <div v-if="alt">
-        {{ alt }}
-      </div>
+  <Gallery>
+    <GalleryPanel>
+      <GalleryImage> Loading.... </GalleryImage>
+      <GalleryTitle />
     </GalleryPanel>
 
-    <GalleryItem tabindex="0" src="https://picsum.photos/id/28/640/640" alt="Lorem ipsum 1">
-      <img src="https://picsum.photos/id/28/200/200" />
+    <GalleryItem>
+      <img src="..." />
     </GalleryItem>
 
-    <GalleryItem tabindex="0" src="https://picsum.photos/id/29/640/640" alt="Lorem ipsum 2">
-      <img src="https://picsum.photos/id/29/200/200" />
+    <GalleryItem>
+      <img src="..." />
     </GalleryItem>
-    
-    <GalleryItem tabindex="0" src="https://picsum.photos/id/10/640/640" alt="Lorem ipsum 3">
-      <img src="https://picsum.photos/id/10/200/200" />
+
+    <GalleryItem>
+      <img src="..." />
     </GalleryItem>
   </Gallery>
 </template>
 ```
+
+### Keyboard interaction
+
+| Command           | Description                                                |
+| ----------------- | ---------------------------------------------------------- |
+| `Esc`             | Closes any open Gallery Panels                             |
+| `Tab`             | Cycles through an open Gallery Panels's contents           |
+| `Shift` + `Tab`   | Cycles backwards through an open Gallery Panels's contents |
+| `Arrow Right/Up`  | Go to next Image                                           |
+| `Arrow Left/Down` | Go to previous Image                                       |
 
 ## Components
 
