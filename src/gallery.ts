@@ -8,13 +8,11 @@ import {
   ref,
   nextTick,
   onUnmounted,
+  mergeProps,
   // Types
   InjectionKey,
   Ref,
   ComputedRef,
-  watchEffect,
-  onUpdated,
-  watch,
 } from 'vue'
 
 interface GalleryItem {
@@ -94,8 +92,6 @@ export const Gallery = defineComponent({
         currentIndex.value = items.value.findIndex((item: GalleryItem) => item.id === id) || 0
         isOpen.value = true
         emit('update:modelValue', true)
-        // if (currentItem.value?.id === id) return
-        // isLoading.value = true
       },
       close() {
         isOpen.value = false
@@ -105,12 +101,10 @@ export const Gallery = defineComponent({
       next() {
         if (currentIndex.value === items.value.length - 1) return
         currentIndex.value = currentIndex.value + 1
-        // isLoading.value = true
       },
       prev() {
         if (currentIndex.value === 0) return
         currentIndex.value = currentIndex.value - 1
-        // isLoading.value = true
       },
     }
 
@@ -256,44 +250,46 @@ export const GalleryItem = defineComponent({
   },
 })
 
+const GalleryImg = defineComponent({
+  name: 'GalleryImg',
+
+  setup(_, { emit, attrs }) {
+    emit('loading', true)
+
+    const onLoad = (event: Event) => {
+      emit('loading', false)
+    }
+
+    const onError = (event: Event) => {
+      emit('loading', false)
+    }
+
+    return () => h('img', mergeProps({ onLoad, onError }, attrs))
+  },
+})
+
 export const GalleryImage = defineComponent({
   name: 'GalleryImage',
 
   inheritAttrs: false,
 
-  setup(_, { emit, slots, attrs }) {
+  setup(_, { slots, attrs }) {
     const api = useGalleryContext('GalleryImage')
 
-    watch(
-      () => api.currentIndex.value,
-      (current, previous) => {
-        if (current === previous) return
-        api.isLoading.value = true
-      }
-    )
-
-    const onLoad = (event: Event) => {
-      api.isLoading.value = false
-      emit('load', event)
+    const onLoading = (value: boolean) => {
+      api.isLoading.value = value
     }
-
-    const onError = (event: Event) => {
-      api.isLoading.value = false
-      emit('error', event)
-    }
-
-    onMounted(() => {
-      api.isLoading.value = true
-    })
 
     return () => [
       api.isLoading.value ? slots.default?.() : null,
-      h('img', {
+      h(GalleryImg, {
+        ...attrs,
         src: api.currentItem.value?.src,
         alt: api.currentItem.value?.alt,
-        onLoad,
-        onError,
-        ...attrs,
+        key: api.currentItem.value?.id,
+        height: api.isLoading.value ? 0 : null,
+        width: api.isLoading.value ? 0 : null,
+        onLoading,
       }),
     ]
   },

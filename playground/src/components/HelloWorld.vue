@@ -139,12 +139,14 @@ watch(isGalleryOpen, (isOpen) => {
     <h1 class="text-3xl font-bold tracking-tight text-gray-900 my-8">Without modal</h1>
     <div class="grid grid-cols-2 gap-5">
       <Gallery class="grid grid-cols-4 gap-2" v-slot:default="{ isLoading }">
-        <div class="col-span-4 object-cover overflow-hidden aspect-square relative bg-gray-200 rounded-xl">
+        <div
+          class="col-span-4 object-cover overflow-hidden aspect-square relative bg-gray-200 rounded-xl flex items-center justify-center"
+        >
           <GalleryImage
-            :class="['block transition-opacity duration-200 ease-out', isLoading ? 'opacity-0' : 'opacity-1']"
+            :class="['block transition-opacity duration-1000 ease-out', isLoading ? 'opacity-0' : 'opacity-1']"
           >
             <svg
-              class="absolute top-1/2 left-1/2 animate-spin h-8 w-8 text-gray-700 origin-center"
+              class="animate-spin h-8 w-8 text-gray-700"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -160,7 +162,10 @@ watch(isGalleryOpen, (isOpen) => {
         </div>
         <template v-for="{ thumb, title, image } in images" :key="thumb">
           <GalleryItem tag="a" href="#" :src="image" :alt="title" v-slot="{ selected }">
-            <img :src="thumb" :class="['rounded-md', { 'outline outline-2 outline-indigo-500 outline-offset-1': selected }]" />
+            <img
+              :src="thumb"
+              :class="['rounded-md', { 'outline outline-2 outline-indigo-500 outline-offset-1': selected }]"
+            />
           </GalleryItem>
         </template>
       </Gallery>
