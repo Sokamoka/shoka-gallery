@@ -70,11 +70,11 @@ export const Gallery = defineComponent({
 
   setup(props, { emit, slots }) {
     const items = ref<GalleryItem[]>([])
-    const isOpen = ref(props.modelValue)
+    const isOpen = ref<boolean>(props.modelValue)
     const currentIndex = ref(0)
     const isLoading = ref(false)
 
-    const currentItem = computed(() => items.value[currentIndex.value])
+    const currentItem = computed<GalleryItem>(() => items.value[currentIndex.value])
 
     const api = {
       items,
@@ -118,13 +118,12 @@ export const Gallery = defineComponent({
         currentIndex: currentIndex.value,
         isStartIndex: api.isStartIndex.value,
         isEndIndex: api.isEndIndex.value,
+        currentItem: currentItem.value,
         close: () => api.close(),
         next: () => api.next(),
         prev: () => api.prev(),
-        ...currentItem.value,
       }
-      const scopedSlots = slots.default?.(slot)
-      return h(props.tag, {}, scopedSlots)
+      return h(props.tag, {}, slots.default?.(slot))
     }
   },
 })
@@ -168,15 +167,18 @@ export const GalleryPanel = defineComponent({
 
     return () => {
       const slot = {
+        currentIndex: api.currentIndex.value,
         isStartIndex: api.isStartIndex.value,
         isEndIndex: api.isEndIndex.value,
         isLoading: api.isLoading.value,
-        ...api.currentItem.value,
+        currentItem: api.currentItem.value,
         close: () => api.close(),
         next: () => api.next(),
         prev: () => api.prev(),
       }
+
       const scopedSlots = slots.default?.(slot)
+
       const ourProps = {
         ref: galleryPanelRef,
         role: 'dialog',
@@ -310,7 +312,7 @@ export const GalleryTitle = defineComponent({
   props: {
     tag: {
       type: [String, Object],
-      default: 'div',
+      default: 'h2',
     },
   },
 
