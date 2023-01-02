@@ -55,7 +55,7 @@ watch(isGalleryOpen, (isOpen) => {
           <GalleryPanel
             v-if="open"
             class="fixed flex flex-col items-center justify-center inset-0 z-50"
-            v-slot:default="{ isLoading, alt, isStartIndex, isEndIndex, close, next, prev }"
+            v-slot:default="{ isLoading, title, isStartIndex, isEndIndex, close, next, prev }"
           >
             <div class="fixed bg-white/80 backdrop-blur-sm inset-0 -z-10" />
             <button
@@ -103,11 +103,11 @@ watch(isGalleryOpen, (isOpen) => {
             </button>
 
             <div
-              v-if="alt"
+              v-if="title"
               class="absolute bottom-2 left-1/2 bg-rose-600 rounded-full shadow-md text-white text-sm font-medium transform -translate-x-1/2 px-5 py-2"
               aria-live="assertive"
             >
-              {{ alt }}
+              {{ title }}
             </div>
           </GalleryPanel>
         </transition>
@@ -116,6 +116,7 @@ watch(isGalleryOpen, (isOpen) => {
         tabindex="0"
         src="https://picsum.photos/id/28/640/640"
         alt="Donec sollicitudin molestie malesuada."
+        title="Donec sollicitudin molestie malesuada."
         class="cursor-pointer"
       >
         <img src="https://picsum.photos/id/28/250/250" />
@@ -124,6 +125,7 @@ watch(isGalleryOpen, (isOpen) => {
         tabindex="0"
         src="https://picsum.photos/id/29/640/640"
         alt="Pellentesque in ipsum id orci porta dapibus."
+        title="Pellentesque in ipsum id orci porta dapibus."
         class="cursor-pointer"
       >
         <img src="https://picsum.photos/id/29/250/250" />
@@ -132,6 +134,7 @@ watch(isGalleryOpen, (isOpen) => {
         tabindex="0"
         src="https://picsum.photos/id/10/640/640"
         alt="Curabitur aliquet quam id dui posuere blandit."
+        title="Curabitur aliquet quam id dui posuere blandit."
         class="cursor-pointer"
       >
         <img src="https://picsum.photos/id/10/250/250" />
@@ -140,6 +143,7 @@ watch(isGalleryOpen, (isOpen) => {
         tabindex="0"
         src="https://picsum.photos/id/12/640/640"
         alt="Pellentesque in ipsum id orci porta dapibus."
+        title="Pellentesque in ipsum id orci porta dapibus."
         class="cursor-pointer"
       >
         <img src="https://picsum.photos/id/12/250/250" />
@@ -148,6 +152,7 @@ watch(isGalleryOpen, (isOpen) => {
         tabindex="0"
         src="https://picsum.photos/id/14/640/640"
         alt="Praesent sapien massa, convallis a pellentesque nec, egestas non nisi."
+        title="Praesent sapien massa, convallis a pellentesque nec, egestas non nisi."
         class="cursor-pointer"
       >
         <img src="https://picsum.photos/id/14/250/250" />
@@ -156,6 +161,7 @@ watch(isGalleryOpen, (isOpen) => {
         tabindex="0"
         src="https://picsum.photos/id/16/640/640"
         alt="Donec sollicitudin molestie malesuada."
+        title="Donec sollicitudin molestie malesuada."
         class="cursor-pointer"
       >
         <img src="https://picsum.photos/id/16/250/250" />

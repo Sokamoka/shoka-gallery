@@ -19,6 +19,7 @@ interface GalleryItem {
   id: string
   src: string
   alt: string
+  title: string
   itemRef: HTMLElement | null
 }
 
@@ -207,6 +208,11 @@ export const GalleryItem = defineComponent({
       type: String,
       default: '',
     },
+
+    title: {
+      type: String,
+      default: '',
+    },
   },
 
   setup(props, { slots }) {
@@ -217,7 +223,9 @@ export const GalleryItem = defineComponent({
 
     const isSelected = computed(() => api.currentItem.value?.id === id)
 
-    onMounted(() => api.registerImage({ id, src: props.src, alt: props.alt, itemRef: itemRef.value }))
+    onMounted(() =>
+      api.registerImage({ id, src: props.src, alt: props.alt, title: props.title, itemRef: itemRef.value })
+    )
     onUnmounted(() => api.unregisterImage(id))
 
     const onClick = (event: Event) => {
