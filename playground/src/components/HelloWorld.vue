@@ -51,13 +51,20 @@ watch(isGalleryOpen, (isOpen) => {
     <h1 class="text-3xl font-bold tracking-tight text-gray-900 my-8">With modal dialog</h1>
     <Gallery v-model="isGalleryOpen" v-slot:default="{ open }" class="grid grid-cols-6 gap-2 mb-20">
       <Teleport to="body">
-        <transition name="fade" mode="in-out">
+        <transition
+          enter-active-class="duration-300 ease-out"
+          enter-from-class="opacity-0"
+          enter-to-class="opacity-100"
+          leave-active-class="duration-200 ease-in"
+          leave-from-class="opacity-100"
+          leave-to-class="opacity-0"
+        >
           <GalleryPanel
             v-if="open"
             class="fixed flex flex-col items-center justify-center inset-0 z-50"
             v-slot:default="{ isLoading, isStartIndex, isEndIndex, close, next, prev }"
           >
-            <div class="fixed bg-white/80 backdrop-blur-sm inset-0 -z-10" />
+            <div class="fixed bg-white/80 backdrop-blur-sm inset-0 -z-10" aria-hidden="true" />
             <button
               class="absolute top-2 right-4 rounded-full bg-white hover:bg-rose-600 hover:text-white shadow-md p-2 cursor-pointer z-20"
               @click="close()"
