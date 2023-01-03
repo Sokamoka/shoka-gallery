@@ -69,58 +69,58 @@ import { Gallery, GalleryItem, GalleryPanel, GalleryImage, GalleryTitle } from '
 
 ### Gallery
 
-| Prop         | Default | Description                                            |
-| ------------ | ------- | ------------------------------------------------------ |
-| `modelValue` | false   | Whether the Gallery is open or not.                    |
-| `tag`        | 'div'   | The element or component the Gallery should render as. |
+| Prop           | Default | Description                                            |
+| -------------- | ------- | ------------------------------------------------------ |
+| **modelValue** | false   | Whether the Gallery is open or not.                    |
+| **tag**        | 'div'   | The element or component the Gallery should render as. |
 
 | Slot Prop      | Type      | Description                         |
 | -------------- | --------- | ----------------------------------- |
-| `open`         | 'Boolean' | Whether the Gallery is open or not. |
-| `isLoading`    | 'Boolean' | Image is loading                    |
-| `currentIndex` | 'Number'  | Current image index                 |
-| `isStartIndex` | 'Boolean' | Current image is first              |
-| `isEndIndex`   | 'Boolean' | Current image is last               |
-| `currentItem`  | 'Object'  | Current image object                |
-| `close`        | 'event'   | Call for closing gallery panel      |
-| `next`         | 'event'   | Call for step next image            |
-| `prev`         | 'event'   | Call for step previous image        |
+| **open**         | 'Boolean' | Whether the Gallery is open or not. |
+| **isLoading**    | 'Boolean' | Image is loading                    |
+| **currentIndex** | 'Number'  | Current image index                 |
+| **isStartIndex** | 'Boolean' | Current image is first              |
+| **isEndIndex**   | 'Boolean' | Current image is last               |
+| **currentItem**  | 'Object'  | Current image object                |
+| **close**        | 'event'   | Call for closing gallery panel      |
+| **next**         | 'event'   | Call for step next image            |
+| **prev**         | 'event'   | Call for step previous image        |
 
 ### GalleryItem
 
 | Prop    | Default | Description                                            |
 | ------- | ------- | ------------------------------------------------------ |
-| `tag`   | 'div'   | The element or component the Gallery should render as. |
-| `src`   | ''      | Desc                                                   |
-| `alt`   | ''      | Desc                                                   |
-| `title` | ''      | Desc                                                   |
+| **tag**   | 'div'   | The element or component the Gallery should render as. |
+| **src**   | ''      | Desc                                                   |
+| **alt**   | ''      | Desc                                                   |
+| **title** | ''      | Desc                                                   |
 
 ### GalleryPanel
 
 | Prop  | Default | Description                                            |
 | ----- | ------- | ------------------------------------------------------ |
-| `tag` | 'div'   | The element or component the Gallery should render as. |
+| **tag** | 'div'   | The element or component the Gallery should render as. |
 
 | Slot Prop      | Type      | Description                    |
 | -------------- | --------- | ------------------------------ |
-| `isLoading`    | 'Boolean' | Image is loading               |
-| `currentIndex` | 'Number'  | Current image index            |
-| `isStartIndex` | 'Boolean' | Current image is first         |
-| `isEndIndex`   | 'Boolean' | Current image is last          |
-| `currentItem`  | 'Object'  | Current image object           |
-| `close`        | 'event'   | Call for closing gallery panel |
-| `next`         | 'event'   | Call for step next image       |
-| `prev`         | 'event'   | Call for step previous image   |
+| **isLoading**    | 'Boolean' | Image is loading               |
+| **currentIndex** | 'Number'  | Current image index            |
+| **isStartIndex** | 'Boolean' | Current image is first         |
+| **isEndIndex**   | 'Boolean' | Current image is last          |
+| **currentItem**  | 'Object'  | Current image object           |
+| **close**        | 'event'   | Call for closing gallery panel |
+| **next**         | 'event'   | Call for step next image       |
+| **prev**         | 'event'   | Call for step previous image   |
 
 ### GalleryImage
 
-| Events  | Description                                         |
-| ------- | --------------------------------------------------- |
-| `load`  | Image is loaded                                     |
-| `error` | An error occurs while loading or rendering an image |
+| Events    | Description                                         |
+| --------- | --------------------------------------------------- |
+| **load**  | Image is loaded                                     |
+| **error** | An error occurs while loading or rendering an image |
 
 ### GalleryTitle
 
-| Prop  | Default | Description                                            |
-| ----- | ------- | ------------------------------------------------------ |
-| `tag` | 'h2'    | The element or component the Gallery should render as. |
+| Prop    | Default | Description                                            |
+| ------- | ------- | ------------------------------------------------------ |
+| **tag** | 'h2'    | The element or component the Gallery should render as. |
