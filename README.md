@@ -76,15 +76,15 @@ import { Gallery, GalleryItem, GalleryPanel, GalleryImage, GalleryTitle } from '
 
 | Slot Prop      | Type      | Description                         |
 | -------------- | --------- | ----------------------------------- |
-| `open`         | `Boolean` | Whether the Gallery is open or not. |
-| `isLoading`    | `Boolean` | Image is loading                    |
-| `currentIndex` | `Number`  | Current image index                 |
-| `isStartIndex` | `Boolean` | Current image is first              |
-| `isEndIndex`   | `Boolean` | Current image is last               |
-| `currentItem`  | `Object`  | Current image object                |
-| `close`        | `event`   | Call for closing gallery panel      |
-| `next`         | `event`   | Call for step next image            |
-| `prev`         | `event`   | Call for step previous image        |
+| `open`         | 'Boolean' | Whether the Gallery is open or not. |
+| `isLoading`    | 'Boolean' | Image is loading                    |
+| `currentIndex` | 'Number'  | Current image index                 |
+| `isStartIndex` | 'Boolean' | Current image is first              |
+| `isEndIndex`   | 'Boolean' | Current image is last               |
+| `currentItem`  | 'Object'  | Current image object                |
+| `close`        | 'event'   | Call for closing gallery panel      |
+| `next`         | 'event'   | Call for step next image            |
+| `prev`         | 'event'   | Call for step previous image        |
 
 ### GalleryItem
 
@@ -103,14 +103,14 @@ import { Gallery, GalleryItem, GalleryPanel, GalleryImage, GalleryTitle } from '
 
 | Slot Prop      | Type      | Description                    |
 | -------------- | --------- | ------------------------------ |
-| `isLoading`    | `Boolean` | Image is loading               |
-| `currentIndex` | `Number`  | Current image index            |
-| `isStartIndex` | `Boolean` | Current image is first         |
-| `isEndIndex`   | `Boolean` | Current image is last          |
-| `currentItem`  | `Object`  | Current image object           |
-| `close`        | `event`   | Call for closing gallery panel |
-| `next`         | `event`   | Call for step next image       |
-| `prev`         | `event`   | Call for step previous image   |
+| `isLoading`    | 'Boolean' | Image is loading               |
+| `currentIndex` | 'Number'  | Current image index            |
+| `isStartIndex` | 'Boolean' | Current image is first         |
+| `isEndIndex`   | 'Boolean' | Current image is last          |
+| `currentItem`  | 'Object'  | Current image object           |
+| `close`        | 'event'   | Call for closing gallery panel |
+| `next`         | 'event'   | Call for step next image       |
+| `prev`         | 'event'   | Call for step previous image   |
 
 ### GalleryImage
 
