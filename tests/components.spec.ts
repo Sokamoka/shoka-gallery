@@ -33,6 +33,8 @@ describe('Gallery', () => {
 
     const GalleryPanelComp = wrapper.getComponent({ name: 'GalleryPanel' })
     expect(GalleryPanelComp.attributes('role')).toBe('dialog')
+    expect(GalleryPanelComp.attributes('tabindex')).toBe('0')
+    expect(GalleryPanelComp.attributes('aria-modal')).toBe('false')
 
     console.log(wrapper.html())
   })
