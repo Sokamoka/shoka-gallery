@@ -1,23 +1,26 @@
 import {
-  computed,
-  defineComponent,
   h,
-  inject,
-  onMounted,
-  provide,
   ref,
+  toRefs,
+  inject,
+  provide,
   nextTick,
-  onUnmounted,
+  computed,
+  onMounted,
   mergeProps,
+  onUnmounted,
+  defineComponent,
   // Types
-  InjectionKey,
   Ref,
   ComputedRef,
+  InjectionKey,
 } from 'vue'
 
 interface GalleryItem {
   id: string
   src: string
+  srcset?: string
+  sizes?: string
   alt?: string
   title?: string
   itemRef: HTMLElement | null
@@ -206,6 +209,16 @@ export const GalleryItem = defineComponent({
       default: '',
     },
 
+    srcset: {
+      type: String,
+      default: '',
+    },
+
+    sizes: {
+      type: String,
+      default: '',
+    },
+
     alt: {
       type: String,
       default: '',
@@ -218,6 +231,7 @@ export const GalleryItem = defineComponent({
   },
 
   setup(props, { slots }) {
+    const { src, srcset, sizes, alt, title } = toRefs(props)
     const itemRef = ref<GalleryItem['itemRef']>(null)
     const api = useGalleryContext('GalleryItem')
 
@@ -226,7 +240,15 @@ export const GalleryItem = defineComponent({
     const isSelected = computed(() => api.currentItem.value?.id === id)
 
     onMounted(() =>
-      api.registerImage({ id, src: props.src, alt: props.alt, title: props.title, itemRef: itemRef.value })
+      api.registerImage({
+        id,
+        src: src.value,
+        srcset: srcset.value,
+        sizes: sizes.value,
+        alt: alt.value,
+        title: title.value,
+        itemRef: itemRef.value,
+      })
     )
     onUnmounted(() => api.unregisterImage(id))
 
@@ -295,6 +317,8 @@ export const GalleryImage = defineComponent({
       h(GalleryImg, {
         ...attrs,
         src: api.currentItem.value?.src,
+        srcset: api.currentItem.value?.srcset,
+        sizes: api.currentItem.value?.sizes,
         alt: api.currentItem.value?.alt,
         title: api.currentItem.value?.title,
         key: api.currentItem.value?.id,

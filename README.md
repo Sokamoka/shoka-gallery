@@ -74,8 +74,8 @@ import { Gallery, GalleryItem, GalleryPanel, GalleryImage, GalleryTitle } from '
 | **modelValue** | false   | Whether the Gallery is open or not.                    |
 | **tag**        | 'div'   | The element or component the Gallery should render as. |
 
-| Slot Prop      | Type      | Description                         |
-| -------------- | --------- | ----------------------------------- |
+| Slot Prop        | Type      | Description                         |
+| ---------------- | --------- | ----------------------------------- |
 | **open**         | 'Boolean' | Whether the Gallery is open or not. |
 | **isLoading**    | 'Boolean' | Image is loading                    |
 | **currentIndex** | 'Number'  | Current image index                 |
@@ -88,21 +88,23 @@ import { Gallery, GalleryItem, GalleryPanel, GalleryImage, GalleryTitle } from '
 
 ### GalleryItem
 
-| Prop    | Default | Description                                            |
-| ------- | ------- | ------------------------------------------------------ |
-| **tag**   | 'div'   | The element or component the Gallery should render as. |
-| **src**   | ''      | Desc                                                   |
-| **alt**   | ''      | Desc                                                   |
-| **title** | ''      | Desc                                                   |
+| Prop       | Default | Description                                            |
+| ---------- | ------- | ------------------------------------------------------ |
+| **tag**    | 'div'   | The element or component the Gallery should render as. |
+| **src**    | ''      | The image URL                                          |
+| **srcset** | ''      | Possible image sources                                 |
+| **sizes**  | ''      | Set of source sizes                                    |
+| **alt**    | ''      | Alternative text for accessibility                     |
+| **title**  | ''      | Caption of image                                       |
 
 ### GalleryPanel
 
-| Prop  | Default | Description                                            |
-| ----- | ------- | ------------------------------------------------------ |
+| Prop    | Default | Description                                            |
+| ------- | ------- | ------------------------------------------------------ |
 | **tag** | 'div'   | The element or component the Gallery should render as. |
 
-| Slot Prop      | Type      | Description                    |
-| -------------- | --------- | ------------------------------ |
+| Slot Prop        | Type      | Description                    |
+| ---------------- | --------- | ------------------------------ |
 | **isLoading**    | 'Boolean' | Image is loading               |
 | **currentIndex** | 'Number'  | Current image index            |
 | **isStartIndex** | 'Boolean' | Current image is first         |
