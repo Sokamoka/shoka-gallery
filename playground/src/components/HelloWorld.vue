@@ -211,5 +211,13 @@ watch(isGalleryOpen, (isOpen) => {
         Lorem ipsum
       </div>
     </div>
+
+    <Gallery>
+      <GalleryPanel>
+        <GalleryTitle />
+      </GalleryPanel>
+      <GalleryItem src="img1" title="title-1">A</GalleryItem>
+      <GalleryItem src="img2" title="title-2">B</GalleryItem>
+    </Gallery>
   </div>
 </template>

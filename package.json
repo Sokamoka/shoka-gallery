@@ -20,6 +20,7 @@
   "scripts": {
     "build": "unbuild",
     "play": "pnpm run -C playground dev",
+    "test:dev": "vitest",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "files": [
@@ -36,11 +37,12 @@
     "api"
   ],
   "license": "MIT",
-  "dependencies": {
-    "vue": "^3.2.45"
-  },
   "devDependencies": {
-    "unbuild": "^1.0.2"
+    "@vue/test-utils": "2.0.0-rc.18",
+    "happy-dom": "^8.1.1",
+    "unbuild": "^1.0.2",
+    "vitest": "^0.26.3",
+    "vue": "^3.2.45"
   },
   "repository": {
     "type": "git",
