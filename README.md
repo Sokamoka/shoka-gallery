@@ -3,7 +3,7 @@
 Super simple a11y headless image gallery for Vue users
 
 ## Example
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)]https://stackblitz.com/edit/vitejs-vite-hcq85m?file=src/components/HelloWorld.vue)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/edit/vitejs-vite-hcq85m?file=src/components/HelloWorld.vue)
 
 ## Installation
 
