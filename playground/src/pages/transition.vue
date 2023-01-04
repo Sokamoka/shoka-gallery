@@ -30,6 +30,7 @@ watch(isGalleryOpen, (isOpen) => {
             v-if="open"
             class="fixed flex flex-col items-center justify-center inset-0 z-50"
             v-slot:default="{ isLoading, isStartIndex, isEndIndex, close, next, prev }"
+            static
           >
             <div class="fixed bg-white/80 backdrop-blur-sm inset-0 -z-10" aria-hidden="true" />
             <button

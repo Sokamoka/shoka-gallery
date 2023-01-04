@@ -9,6 +9,7 @@ import {
   onMounted,
   mergeProps,
   onUnmounted,
+  watchEffect,
   defineComponent,
   // Types
   Ref,
@@ -16,6 +17,7 @@ import {
   InjectionKey,
 } from 'vue'
 import { getId } from './utils/id'
+import { render } from './utils/render'
 
 interface GalleryItem {
   id: string
@@ -140,6 +142,11 @@ export const GalleryPanel = defineComponent({
       type: [String, Object],
       default: 'div',
     },
+
+    static: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   setup(props, { slots }) {
@@ -147,7 +154,10 @@ export const GalleryPanel = defineComponent({
 
     const api = useGalleryContext('GalleryPanel')
 
-    onMounted(() => galleryPanelRef.value?.focus())
+    watchEffect(() => {
+      console.log('we:', galleryPanelRef.value)
+      galleryPanelRef.value?.focus()
+    })
 
     const onKeydown = (event: KeyboardEvent) => {
       switch (event.key) {
@@ -181,9 +191,8 @@ export const GalleryPanel = defineComponent({
         prev: () => api.prev(),
       }
 
-      const scopedSlots = slots.default?.(slot)
-
       const ourProps = {
+        as: props.tag,
         ref: galleryPanelRef,
         role: 'dialog',
         'aria-modal': api.isOpen.value,
@@ -191,7 +200,14 @@ export const GalleryPanel = defineComponent({
         tabindex: 0,
         onKeydown,
       }
-      return h(props.tag, ourProps, scopedSlots)
+      return render({
+        visible: api.isOpen.value,
+        staticRender: props.static,
+        ourProps,
+        slot,
+        slots,
+        name: 'GalleryPanel',
+      })
     }
   },
 })
@@ -273,12 +289,14 @@ export const GalleryItem = defineComponent({
       }
 
       const ourProps = {
+        as: props.tag,
         id: id,
         ref: itemRef,
         onClick,
         onKeydown,
       }
-      return h(props.tag, ourProps, slots.default?.(slot))
+      // return h(props.tag, ourProps, slots.default?.(slot))
+      return render({ ourProps, slot, slots })
     }
   },
 })
