@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, watch } from 'vue';
+import { ref, watch } from 'vue'
 import { Icon } from '@iconify/vue'
 
 const isGalleryOpen = ref(false)
@@ -15,8 +15,8 @@ watch(isGalleryOpen, (isOpen) => {
 
 <template>
   <div class="max-w-7xl mx-auto">
-    <h1 class="text-3xl font-bold tracking-tight text-gray-900 my-8">With modal dialog</h1>
-    <Gallery v-model="isGalleryOpen" v-slot:default="{ open }" class="grid grid-cols-6 gap-2 mb-20">
+    <h1 class="text-3xl font-bold tracking-tight text-gray-900 my-3">With modal dialog</h1>
+    <Gallery v-model="isGalleryOpen" v-slot:default="{ open }" class="grid grid-cols-3 grid-rows-3 max-w-xl mx-auto">
       <Teleport to="body">
         <transition
           enter-active-class="duration-300 ease-out"
@@ -135,6 +135,33 @@ watch(isGalleryOpen, (isOpen) => {
         class="cursor-pointer"
       >
         <img src="https://picsum.photos/id/16/250/250" />
+      </GalleryItem>
+      <GalleryItem
+        tabindex="0"
+        src="https://picsum.photos/id/17/640/640"
+        alt="Donec sollicitudin molestie malesuada."
+        title="Donec sollicitudin molestie malesuada."
+        class="cursor-pointer"
+      >
+        <img src="https://picsum.photos/id/17/250/250" />
+      </GalleryItem>
+      <GalleryItem
+        tabindex="0"
+        src="https://picsum.photos/id/18/640/640"
+        alt="Donec sollicitudin molestie malesuada."
+        title="Donec sollicitudin molestie malesuada."
+        class="cursor-pointer"
+      >
+        <img src="https://picsum.photos/id/18/250/250" />
+      </GalleryItem>
+      <GalleryItem
+        tabindex="0"
+        src="https://picsum.photos/id/19/640/640"
+        alt="Donec sollicitudin molestie malesuada."
+        title="Donec sollicitudin molestie malesuada."
+        class="cursor-pointer"
+      >
+        <img src="https://picsum.photos/id/19/250/250" />
       </GalleryItem>
     </Gallery>
   </div>

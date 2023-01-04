@@ -81,6 +81,7 @@ import { Gallery, GalleryItem, GalleryPanel, GalleryImage, GalleryTitle } from '
 | Slot Prop        | Type      | Description                         |
 | ---------------- | --------- | ----------------------------------- |
 | **open**         | 'Boolean' | Whether the Gallery is open or not. |
+| **items**        | 'Array'   | Images                              |
 | **isLoading**    | 'Boolean' | Image is loading                    |
 | **currentIndex** | 'Number'  | Current image index                 |
 | **isStartIndex** | 'Boolean' | Current image is first              |
@@ -114,6 +115,7 @@ import { Gallery, GalleryItem, GalleryPanel, GalleryImage, GalleryTitle } from '
 | Slot Prop        | Type      | Description                    |
 | ---------------- | --------- | ------------------------------ |
 | **isLoading**    | 'Boolean' | Image is loading               |
+| **items**        | 'Array'   | Images                              |
 | **currentIndex** | 'Number'  | Current image index            |
 | **isStartIndex** | 'Boolean' | Current image is first         |
 | **isEndIndex**   | 'Boolean' | Current image is last          |

@@ -74,7 +74,7 @@ export const Gallery = defineComponent({
     },
   },
 
-  setup(props, { emit, slots, expose }) {
+  setup(props, { emit, slots }) {
     const items = ref<GalleryItem[]>([])
     const isOpen = ref<boolean>(props.modelValue)
     const currentIndex = ref(0)
@@ -120,6 +120,7 @@ export const Gallery = defineComponent({
     return () => {
       const slot = {
         open: isOpen.value,
+        items: items.value,
         isLoading: isLoading.value,
         currentIndex: currentIndex.value,
         isStartIndex: api.isStartIndex.value,
@@ -138,7 +139,7 @@ export const GalleryPanel = defineComponent({
   name: 'GalleryPanel',
 
   props: {
-    tag: {
+    as: {
       type: [String, Object],
       default: 'div',
     },
@@ -149,15 +150,20 @@ export const GalleryPanel = defineComponent({
     },
   },
 
-  setup(props, { slots }) {
+  setup(props, { attrs, slots }) {
     const galleryPanelRef = ref<HTMLDivElement | null>(null)
 
     const api = useGalleryContext('GalleryPanel')
 
-    watchEffect(() => {
-      console.log('we:', galleryPanelRef.value)
-      galleryPanelRef.value?.focus()
-    })
+    watchEffect(
+      () => {
+        console.log('we:', galleryPanelRef.value)
+        galleryPanelRef.value?.focus()
+      },
+      {
+        flush: 'post',
+      }
+    )
 
     const onKeydown = (event: KeyboardEvent) => {
       switch (event.key) {
@@ -181,6 +187,7 @@ export const GalleryPanel = defineComponent({
 
     return () => {
       const slot = {
+        items: api.items.value,
         currentIndex: api.currentIndex.value,
         isStartIndex: api.isStartIndex.value,
         isEndIndex: api.isEndIndex.value,
@@ -191,8 +198,11 @@ export const GalleryPanel = defineComponent({
         prev: () => api.prev(),
       }
 
+      const theirProps = {
+        as: props.as,
+      }
+
       const ourProps = {
-        as: props.tag,
         ref: galleryPanelRef,
         role: 'dialog',
         'aria-modal': api.isOpen.value,
@@ -200,10 +210,13 @@ export const GalleryPanel = defineComponent({
         tabindex: 0,
         onKeydown,
       }
+
       return render({
         visible: api.isOpen.value,
         staticRender: props.static,
         ourProps,
+        theirProps,
+        attrs,
         slot,
         slots,
         name: 'GalleryPanel',
@@ -247,7 +260,7 @@ export const GalleryItem = defineComponent({
     },
   },
 
-  setup(props, { slots }) {
+  setup(props, { attrs, slots }) {
     const { src, srcset, sizes, alt, title } = toRefs(props)
     const itemRef = ref<GalleryItem['itemRef']>(null)
     const api = useGalleryContext('GalleryItem')
@@ -288,15 +301,18 @@ export const GalleryItem = defineComponent({
         selected: isSelected.value,
       }
 
-      const ourProps = {
+      const theirProps = {
         as: props.as,
+      }
+
+      const ourProps = {
         id: id,
         ref: itemRef,
         tabindex: 0,
         onClick,
         onKeydown,
       }
-      return render({ ourProps, slot, slots, name: 'GalleryItem' })
+      return render({ ourProps, attrs, theirProps, slot, slots, name: 'GalleryItem' })
     }
   },
 })

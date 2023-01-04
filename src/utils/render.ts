@@ -4,11 +4,10 @@ export function render({
   visible = true,
   staticRender = false,
   ourProps,
-  theirProps,
+  theirProps = {},
   ...main
 }: {
   ourProps: Record<string, any>
-  theirProps: Record<string, any>
   slot: Record<string, any>
   attrs: Record<string, any>
   slots: Slots
@@ -16,6 +15,7 @@ export function render({
 } & {
   staticRender?: boolean
   visible?: boolean
+  theirProps?: Record<string, any>
 }) {
   let props = mergeProps(theirProps, ourProps)
   let mainWithProps = Object.assign(main, { props })
@@ -29,10 +29,10 @@ export function render({
 function _render({
   props,
   slot,
-  attrs,
+  // attrs,
   slots,
-  name,
-}: {
+}: // name,
+{
   props: Record<string, any>
   slot: Record<string, any>
   attrs: Record<string, any>
