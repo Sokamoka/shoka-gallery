@@ -216,7 +216,7 @@ export const GalleryItem = defineComponent({
   name: 'GalleryItem',
 
   props: {
-    tag: {
+    as: {
       type: [String, Object],
       default: 'div',
     },
@@ -289,14 +289,14 @@ export const GalleryItem = defineComponent({
       }
 
       const ourProps = {
-        as: props.tag,
+        as: props.as,
         id: id,
         ref: itemRef,
+        tabindex: 0,
         onClick,
         onKeydown,
       }
-      // return h(props.tag, ourProps, slots.default?.(slot))
-      return render({ ourProps, slot, slots })
+      return render({ ourProps, slot, slots, name: 'GalleryItem' })
     }
   },
 })

@@ -61,7 +61,7 @@ const images = ref([
           </GalleryImage>
         </div>
         <template v-for="{ thumb, title, image } in images" :key="thumb">
-          <GalleryItem tag="a" href="#" :src="image" :alt="title" v-slot="{ selected }">
+          <GalleryItem as="a" href="#" :src="image" :alt="title" v-slot="{ selected }">
             <img
               :src="thumb"
               :alt="title"

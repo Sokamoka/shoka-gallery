@@ -3,6 +3,7 @@
 Super simple a11y headless image gallery for Vue users
 
 ## Example
+
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/edit/shoka-gallery-examples?file=src/components/HelloWorld.vue)
 
 ## Installation
@@ -93,12 +94,16 @@ import { Gallery, GalleryItem, GalleryPanel, GalleryImage, GalleryTitle } from '
 
 | Prop       | Default | Description                                            |
 | ---------- | ------- | ------------------------------------------------------ |
-| **tag**    | 'div'   | The element or component the Gallery should render as. |
+| **as**     | 'div'   | The element or component the Gallery should render as. |
 | **src**    | ''      | The image URL                                          |
 | **srcset** | ''      | Possible image sources                                 |
 | **sizes**  | ''      | Set of source sizes                                    |
 | **alt**    | ''      | Alternative text for accessibility                     |
 | **title**  | ''      | Caption of image                                       |
+
+| Slot Prop    | Type      | Description           |
+| ------------ | --------- | --------------------- |
+| **selected** | 'Boolean' | Selected/active Image |
 
 ### GalleryPanel
 
