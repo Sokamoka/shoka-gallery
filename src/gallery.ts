@@ -15,6 +15,7 @@ import {
   ComputedRef,
   InjectionKey,
 } from 'vue'
+import { getId } from './utils/id'
 
 interface GalleryItem {
   id: string
@@ -71,7 +72,7 @@ export const Gallery = defineComponent({
     },
   },
 
-  setup(props, { emit, slots }) {
+  setup(props, { emit, slots, expose }) {
     const items = ref<GalleryItem[]>([])
     const isOpen = ref<boolean>(props.modelValue)
     const currentIndex = ref(0)
@@ -235,7 +236,7 @@ export const GalleryItem = defineComponent({
     const itemRef = ref<GalleryItem['itemRef']>(null)
     const api = useGalleryContext('GalleryItem')
 
-    const id = self.crypto.randomUUID()
+    const id = getId()
 
     const isSelected = computed(() => api.currentItem.value?.id === id)
 
