@@ -1,7 +1,7 @@
 <template>
   <Gallery v-slot:default="{ items, currentIndex }">
     <GalleryPanel class="fixed flex items-center justify-center inset-0 z-50 overflow-hidden">
-      <div class="fixed bg-white/80 backdrop-blur-sm inset-0 -z-10" aria-hidden="true" />
+      <div class="fixed bg-black/70 backdrop-blur-sm inset-0 -z-10" aria-hidden="true" />
       <div class="flex duration-200" :style="{ transform: `translateX(${-100 * currentIndex}%)` }">
         <div v-for="{ id, src } in items" :key="id" class="flex-[0_0_100%] flex justify-center">
           <img :src="src" />

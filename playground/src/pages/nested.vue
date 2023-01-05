@@ -48,10 +48,11 @@ const onClickImage = (value: boolean) => {
         <Teleport to="body">
           <GalleryPanel
             v-if="isOpenGallery"
-            class="fixed flex flex-col items-center justify-center inset-0 z-50"
+            class="fixed flex flex-col items-center justify-center inset-0 z-50 outline-none"
             static
             @keydown.esc="onClickImage(false)"
           >
+            <div class="fixed bg-black/80 backdrop-blur-sm inset-0 -z-10" aria-hidden="true" />
             <GalleryImage
               :class="['block transition-opacity duration-1000 ease-out', isLoading ? 'opacity-0' : 'opacity-1']"
               @click="onClickImage(false)"
@@ -73,7 +74,7 @@ const onClickImage = (value: boolean) => {
           </GalleryPanel>
         </Teleport>
         <div
-          class="col-span-4 object-cover overflow-hidden aspect-square relative bg-gray-200 rounded-xl flex items-center justify-center"
+          class="col-span-4 object-cover overflow-hidden aspect-square relative bg-gray-200 rounded-xl flex items-center justify-center cursor-pointer"
           @click="onClickImage(true)"
         >
           <GalleryImage
