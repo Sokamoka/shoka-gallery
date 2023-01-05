@@ -108,9 +108,9 @@ import { Gallery, GalleryItem, GalleryPanel, GalleryImage, GalleryTitle } from '
 
 ### GalleryPanel
 
-| Prop    | Default | Description                                            |
-| ------- | ------- | ------------------------------------------------------ |
-| **tag** | 'div'   | The element or component the Gallery should render as. |
+| Prop   | Default  | Description                                            |
+| ------ | -------- | ------------------------------------------------------ |
+| **as** | 'figure' | The element or component the Gallery should render as. |
 
 | Slot Prop        | Type      | Description                    |
 | ---------------- | --------- | ------------------------------ |
@@ -133,6 +133,6 @@ import { Gallery, GalleryItem, GalleryPanel, GalleryImage, GalleryTitle } from '
 
 ### GalleryTitle
 
-| Prop    | Default | Description                                            |
-| ------- | ------- | ------------------------------------------------------ |
-| **tag** | 'h2'    | The element or component the Gallery should render as. |
+| Prop    | Default      | Description                                            |
+| ------- | ------------ | ------------------------------------------------------ |
+| **tag** | 'figcaption' | The element or component the Gallery should render as. |

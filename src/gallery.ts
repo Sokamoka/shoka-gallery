@@ -150,7 +150,7 @@ export const GalleryPanel = defineComponent({
   props: {
     as: {
       type: [String, Object],
-      default: 'div',
+      default: 'figure',
     },
 
     static: {
@@ -315,7 +315,7 @@ export const GalleryItem = defineComponent({
       }
 
       const ourProps = {
-        id: id,
+        id: `gallery-item-${id}`,
         ref: itemRef,
         tabindex: 0,
         onClick,
@@ -356,21 +356,25 @@ export const GalleryImage = defineComponent({
       api.isLoading.value = value
     }
 
-    return () => [
-      api.isLoading.value ? slots.default?.() : null,
-      h(GalleryImg, {
-        ...attrs,
-        src: api.currentItem.value?.src,
-        srcset: api.currentItem.value?.srcset,
-        sizes: api.currentItem.value?.sizes,
-        alt: api.currentItem.value?.alt,
-        title: api.currentItem.value?.title,
-        key: api.currentItem.value?.id,
-        height: api.isLoading.value ? 0 : null,
-        width: api.isLoading.value ? 0 : null,
-        onLoading,
-      }),
-    ]
+    return () => {
+      const { id, src, srcset, sizes, alt, title } = api.currentItem.value || []
+
+      return [
+        api.isLoading.value ? slots.default?.() : null,
+        h(GalleryImg, {
+          ...attrs,
+          ...(src && { src }),
+          ...(srcset && { srcset }),
+          ...(sizes && { sizes }),
+          ...(alt && { alt }),
+          ...(title && { title }),
+          key: id,
+          height: api.isLoading.value ? 0 : null,
+          width: api.isLoading.value ? 0 : null,
+          onLoading,
+        }),
+      ]
+    }
   },
 })
 
@@ -380,7 +384,7 @@ export const GalleryTitle = defineComponent({
   props: {
     tag: {
       type: [String, Object],
-      default: 'h2',
+      default: 'figcaption',
     },
   },
 
