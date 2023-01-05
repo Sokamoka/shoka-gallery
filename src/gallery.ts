@@ -130,8 +130,8 @@ export const Gallery = defineComponent({
         next: () => api.next(),
         prev: () => api.prev(),
       }
-      const { as } = props;
-      
+      const { as } = props
+
       return render({
         ourProps: {},
         theirProps: { as },
@@ -332,11 +332,11 @@ const GalleryImg = defineComponent({
   setup(_, { emit, attrs }) {
     emit('loading', true)
 
-    const onLoad = (event: Event) => {
+    const onLoad = () => {
       emit('loading', false)
     }
 
-    const onError = (event: Event) => {
+    const onError = () => {
       emit('loading', false)
     }
 
