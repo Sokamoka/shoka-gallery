@@ -76,7 +76,7 @@ import { Gallery, GalleryItem, GalleryPanel, GalleryImage, GalleryTitle } from '
 | Prop           | Default | Description                                            |
 | -------------- | ------- | ------------------------------------------------------ |
 | **modelValue** | false   | Whether the Gallery is open or not.                    |
-| **tag**        | 'div'   | The element or component the Gallery should render as. |
+| **as**         | 'div'   | The element or component the Gallery should render as. |
 
 | Slot Prop        | Type      | Description                         |
 | ---------------- | --------- | ----------------------------------- |
@@ -115,7 +115,7 @@ import { Gallery, GalleryItem, GalleryPanel, GalleryImage, GalleryTitle } from '
 | Slot Prop        | Type      | Description                    |
 | ---------------- | --------- | ------------------------------ |
 | **isLoading**    | 'Boolean' | Image is loading               |
-| **items**        | 'Array'   | Images                              |
+| **items**        | 'Array'   | Images                         |
 | **currentIndex** | 'Number'  | Current image index            |
 | **isStartIndex** | 'Boolean' | Current image is first         |
 | **isEndIndex**   | 'Boolean' | Current image is last          |

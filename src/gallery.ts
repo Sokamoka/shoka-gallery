@@ -63,7 +63,7 @@ export const Gallery = defineComponent({
   name: 'Gallery',
 
   props: {
-    tag: {
+    as: {
       type: [String, Object],
       default: 'div',
     },
@@ -74,7 +74,7 @@ export const Gallery = defineComponent({
     },
   },
 
-  setup(props, { emit, slots }) {
+  setup(props, { emit, slots, attrs }) {
     const items = ref<GalleryItem[]>([])
     const isOpen = ref<boolean>(props.modelValue)
     const currentIndex = ref(0)
@@ -130,7 +130,16 @@ export const Gallery = defineComponent({
         next: () => api.next(),
         prev: () => api.prev(),
       }
-      return h(props.tag, {}, slots.default?.(slot))
+      const { as } = props;
+      
+      return render({
+        ourProps: {},
+        theirProps: { as },
+        attrs,
+        slot,
+        slots,
+        name: 'Gallery',
+      })
     }
   },
 })
