@@ -382,7 +382,7 @@ export const GalleryTitle = defineComponent({
   name: 'GalleryTitle',
 
   props: {
-    tag: {
+    as: {
       type: [String, Object],
       default: 'figcaption',
     },
@@ -394,7 +394,7 @@ export const GalleryTitle = defineComponent({
     return () =>
       api.currentItem.value?.title
         ? h(
-            props.tag,
+            props.as,
             { 'aria-live': 'assertive', id: `title-${api.currentItem.value?.id}` },
             api.currentItem.value?.title
           )

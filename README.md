@@ -135,4 +135,4 @@ import { Gallery, GalleryItem, GalleryPanel, GalleryImage, GalleryTitle } from '
 
 | Prop    | Default      | Description                                            |
 | ------- | ------------ | ------------------------------------------------------ |
-| **tag** | 'figcaption' | The element or component the Gallery should render as. |
+| **as** | 'figcaption' | The element or component the Gallery should render as. |
