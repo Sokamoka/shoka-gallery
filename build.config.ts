@@ -7,6 +7,7 @@ export default defineBuildConfig({
       name: 'index',
     },
   ],
+  externals: ['vue'],
   declaration: true,
 
   rollup: {
