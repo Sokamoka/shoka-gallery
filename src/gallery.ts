@@ -372,8 +372,8 @@ export const GalleryImage = defineComponent({
   },
 })
 
-export const GalleryTitle = defineComponent({
-  name: 'GalleryTitle',
+export const GalleryCaption = defineComponent({
+  name: 'GalleryCaption',
 
   props: {
     as: {
@@ -383,7 +383,7 @@ export const GalleryTitle = defineComponent({
   },
 
   setup(props) {
-    const api = useGalleryContext('GalleryTitle')
+    const api = useGalleryContext('GalleryCaption')
 
     return () =>
       api.currentItem.value?.title

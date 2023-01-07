@@ -40,7 +40,7 @@ const images = ref([
     <Gallery>
       <GalleryPanel>
         <GalleryImage class="w-64 h-64" />
-        <GalleryTitle />
+        <GalleryCaption />
       </GalleryPanel>
       <div class="flex gap-5">
         <template v-for="{ image, thumb, title } in images" key="image">

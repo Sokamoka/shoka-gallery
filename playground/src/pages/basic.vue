@@ -3,7 +3,7 @@
     <Gallery>
       <GalleryPanel>
         <GalleryImage class="w-64 h-64" />
-        <GalleryTitle />
+        <GalleryCaption />
       </GalleryPanel>
       <div class="flex gap-5">
         <GalleryItem src="https://picsum.photos/id/28/256/256" title="title-1">

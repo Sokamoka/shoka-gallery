@@ -7,7 +7,7 @@
           <img :src="src" />
         </div>
       </div>
-      <!-- <GalleryTitle /> -->
+      <!-- <GalleryCaption /> -->
     </GalleryPanel>
     <div class="grid grid-cols-2 grid-rows-2 grid-flow-col gap-2 max-w-xl mx-auto overflow-hidden rounded-xl">
       <GalleryItem src="https://picsum.photos/id/28/600/600" title="title-1" class="row-span-2">

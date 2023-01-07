@@ -1,7 +1,7 @@
 import { defineComponent, nextTick, ref } from 'vue'
 import { describe, it, vi, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { Gallery, GalleryItem, GalleryPanel, GalleryTitle } from '../src'
+import { Gallery, GalleryItem, GalleryPanel, GalleryCaption } from '../src'
 
 let startId = 0
 
@@ -23,7 +23,7 @@ describe('Safeguards', () => {
   it.each([
     ['GalleryItem', GalleryItem],
     ['GalleryPanel', GalleryPanel],
-    ['GalleryTitle', GalleryTitle],
+    ['GalleryCaption', GalleryCaption],
   ])('should error when we are using a <%s /> without a parent <Gallery />', (name, Component) => {
     expect(() =>
       mount(Component as any, {
@@ -40,12 +40,12 @@ describe('Gallery', () => {
         Gallery,
         GalleryItem,
         GalleryPanel,
-        GalleryTitle,
+        GalleryCaption,
       },
       template: `
       <Gallery>
         <GalleryPanel>
-          <GalleryTitle />
+          <GalleryCaption />
         </GalleryPanel>
         <GalleryItem src="img1" title="title-0">A</GalleryItem>
         <GalleryItem src="img2" title="title-1">B</GalleryItem>
@@ -77,7 +77,7 @@ describe('Gallery', () => {
         Gallery,
         GalleryItem,
         GalleryPanel,
-        GalleryTitle,
+        GalleryCaption,
       },
       setup: () => ({ value: ref(true) }),
       template: `
@@ -100,7 +100,7 @@ describe('Gallery', () => {
         Gallery,
         GalleryItem,
         GalleryPanel,
-        GalleryTitle,
+        GalleryCaption,
       },
       setup: () => ({ value: ref(true) }),
       template: `
@@ -123,7 +123,7 @@ describe('Gallery', () => {
         Gallery,
         GalleryItem,
         GalleryPanel,
-        GalleryTitle,
+        GalleryCaption,
       },
       setup: () => ({ value: ref(true) }),
       template: `

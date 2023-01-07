@@ -77,7 +77,7 @@ watch(isGalleryOpen, (isOpen) => {
               <Icon icon="mdi:chevron-right" class="w-8 h-8" />
             </button>
 
-            <GalleryTitle
+            <GalleryCaption
               class="absolute bottom-2 left-1/2 bg-rose-600 rounded-full shadow-md text-white text-sm font-medium transform -translate-x-1/2 px-5 py-2"
             />
           </GalleryPanel>

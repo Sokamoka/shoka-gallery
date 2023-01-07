@@ -35,13 +35,13 @@ app.mount('#app')
 
 ```vue
 <script setup>
-import { Gallery, GalleryItem, GalleryPanel, GalleryImage, GalleryTitle } from 'shoka-gallery'
+import { Gallery, GalleryItem, GalleryPanel, GalleryImage, GalleryCaption } from 'shoka-gallery'
 </script>
 <template>
   <Gallery>
     <GalleryPanel>
       <GalleryImage> Loading.... </GalleryImage>
-      <GalleryTitle />
+      <GalleryCaption />
     </GalleryPanel>
 
     <GalleryItem>
@@ -131,7 +131,7 @@ import { Gallery, GalleryItem, GalleryPanel, GalleryImage, GalleryTitle } from '
 | **load**  | Image is loaded                                     |
 | **error** | An error occurs while loading or rendering an image |
 
-### GalleryTitle
+### GalleryCaption
 
 | Prop    | Default      | Description                                            |
 | ------- | ------------ | ------------------------------------------------------ |

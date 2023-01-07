@@ -1,13 +1,13 @@
 import { App } from 'vue'
 
-import { Gallery, GalleryItem, GalleryPanel, GalleryImage, GalleryTitle } from './gallery'
+import { Gallery, GalleryItem, GalleryPanel, GalleryImage, GalleryCaption } from './gallery'
 
-export { Gallery, GalleryItem, GalleryPanel, GalleryImage, GalleryTitle }
+export { Gallery, GalleryItem, GalleryPanel, GalleryImage, GalleryCaption }
 
 export function ShokaGallery(app: App) {
   app.component('Gallery', Gallery)
   app.component('GalleryItem', GalleryItem)
   app.component('GalleryPanel', GalleryPanel)
   app.component('GalleryImage', GalleryImage)
-  app.component('GalleryTitle', GalleryTitle)
+  app.component('GalleryCaption', GalleryCaption)
 }

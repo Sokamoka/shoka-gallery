@@ -109,7 +109,7 @@ watch(isGalleryOpen, (isOpen) => {
               <Icon icon="mdi:chevron-right" class="w-8 h-8" />
             </button>
 
-            <GalleryTitle
+            <GalleryCaption
               class="absolute bottom-2 left-1/2 bg-rose-600 rounded-full shadow-md text-white text-sm font-medium transform -translate-x-1/2 px-5 py-2"
             />
           </GalleryPanel>
@@ -214,7 +214,7 @@ watch(isGalleryOpen, (isOpen) => {
 
     <Gallery>
       <GalleryPanel>
-        <GalleryTitle />
+        <GalleryCaption />
       </GalleryPanel>
       <GalleryItem src="img1" title="title-1">A</GalleryItem>
       <GalleryItem src="img2" title="title-2">B</GalleryItem>
