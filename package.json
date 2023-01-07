@@ -21,6 +21,7 @@
     "build": "unbuild",
     "play": "pnpm run -C playground dev",
     "lint": "prettier -c --parser typescript \"{src,__tests__,e2e}/**/*.[jt]s?(x)\"",
+    "lint:fix": "pnpm run lint --write",
     "test:dev": "vitest",
     "test:types": "tsc --build tsconfig.json",
     "test:unit": "vitest --coverage",

@@ -260,7 +260,6 @@ describe('Render validation', () => {
       `,
     })
     const wrapper = mount(testComponent)
-    console.log(wrapper.html())
     expect(() => wrapper.get('#result')).toThrowError()
   })
 })

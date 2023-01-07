@@ -164,15 +164,9 @@ export const GalleryPanel = defineComponent({
 
     const api = useGalleryContext('GalleryPanel')
 
-    watchEffect(
-      () => {
-        console.log('we:', galleryPanelRef.value)
-        galleryPanelRef.value?.focus()
-      },
-      {
-        flush: 'post',
-      }
-    )
+    watchEffect(() => galleryPanelRef.value?.focus(), {
+      flush: 'post',
+    })
 
     const onKeydown = (event: KeyboardEvent) => {
       switch (event.key) {
