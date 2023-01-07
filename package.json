@@ -1,6 +1,6 @@
 {
   "name": "shoka-gallery",
-  "version": "1.0.0-alpha.4",
+  "version": "1.0.0-alpha.5",
   "description": "Super simple headless image gallery",
   "type": "module",
   "exports": {
