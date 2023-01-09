@@ -16,6 +16,8 @@ import {
   ComputedRef,
   InjectionKey,
 } from 'vue'
+import { useSwipe } from '@vueuse/core'
+import { SwipeDirection } from '@vueuse/core'
 import { getId } from './utils/id'
 import { render } from './utils/render'
 
@@ -393,5 +395,70 @@ export const GalleryCaption = defineComponent({
             api.currentItem.value?.title
           )
         : null
+  },
+})
+
+export const GallerySwipe = defineComponent({
+  name: 'GallerySwipe',
+
+  props: {
+    as: {
+      type: [String, Object],
+      default: 'div',
+    },
+  },
+
+  setup(props, { slots }) {
+    const api = useGalleryContext('GallerySwipe')
+
+    const target = ref<HTMLElement | null>(null)
+    const left = ref<number>(api.currentIndex.value * 803 * -1)
+    const startPos = ref<number>(0)
+
+    const { lengthX } = useSwipe(target, {
+      passive: false,
+      onSwipeStart(e: TouchEvent) {
+        startPos.value = left.value
+      },
+      onSwipe(e: TouchEvent) {
+        left.value = Number((startPos.value - lengthX.value).toFixed())
+      },
+      onSwipeEnd(e: TouchEvent, direction: SwipeDirection) {
+        // console.log(lengthX.value)
+        if (Math.abs(lengthX.value) > 402) {
+          console.log(direction)
+          if (direction === SwipeDirection.LEFT) {
+            api.next()
+          }
+          if (direction === SwipeDirection.RIGHT) {
+            api.prev()
+          }
+          left.value = api.currentIndex.value * 803 * -1
+          return
+        }
+        left.value = startPos.value
+      },
+    })
+
+    const leftTranslate = computed(() => ({ transform: `translateX(${left.value}px)` }))
+
+    return () => h(props.as, { ref: target, style: leftTranslate.value }, slots.default?.())
+  },
+})
+
+export const GallerySwipeItem = defineComponent({
+  name: 'GallerySwipeItem',
+
+  props: {
+    as: {
+      type: [String, Object],
+      default: 'div',
+    },
+  },
+
+  setup(props, { slots }) {
+    const api = useGalleryContext('GallerySwipeItem')
+
+    return () => h(props.as, {}, slots.default?.())
   },
 })
