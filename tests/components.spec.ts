@@ -1,7 +1,7 @@
 import { defineComponent, nextTick, ref } from 'vue'
 import { describe, it, vi, expect, beforeEach } from 'vitest'
-import { mount } from '@vue/test-utils'
-import { Gallery, GalleryItem, GalleryPanel, GalleryCaption } from '../src'
+import { flushPromises, mount } from '@vue/test-utils'
+import { Gallery, GalleryItem, GalleryPanel, GalleryImage, GalleryCaption } from '../src'
 
 let startId = 0
 
@@ -23,6 +23,7 @@ describe('Safeguards', () => {
   it.each([
     ['GalleryItem', GalleryItem],
     ['GalleryPanel', GalleryPanel],
+    ['GalleryImage', GalleryImage],
     ['GalleryCaption', GalleryCaption],
   ])('should error when we are using a <%s /> without a parent <Gallery />', (name, Component) => {
     expect(() =>
@@ -33,18 +34,20 @@ describe('Safeguards', () => {
   })
 })
 
-describe('Gallery', () => {
-  it('Rendering GalleryPanel', async () => {
+describe('Rendering', () => {
+  it('Should render all component', async () => {
     const testComponent = defineComponent({
       components: {
         Gallery,
         GalleryItem,
         GalleryPanel,
+        GalleryImage,
         GalleryCaption,
       },
       template: `
       <Gallery>
         <GalleryPanel>
+          <GalleryImage />
           <GalleryCaption />
         </GalleryPanel>
         <GalleryItem src="img1" title="title-0">A</GalleryItem>
@@ -61,12 +64,8 @@ describe('Gallery', () => {
     await triggerComponent.trigger('click')
 
     expect(GalleryPanelComp.isVisible()).toBe(true)
-    expect(GalleryPanelComp.attributes('role')).toBe('dialog')
-    expect(GalleryPanelComp.attributes('tabindex')).toBe('0')
-    expect(GalleryPanelComp.attributes('aria-modal')).toBe('true')
-    expect(GalleryPanelComp.attributes('aria-labelby')).toBe('title-0')
-
-    expect(wrapper.find('figcaption').attributes('id')).toBe('title-0')
+    expect(wrapper.find('figcaption').exists()).toBe(true)
+    expect(wrapper.find('img').exists()).toBe(true)
   })
 
   it('Should show GalleryPanel immediate', async () => {
@@ -112,6 +111,180 @@ describe('Gallery', () => {
     const GalleryPanelComp = wrapper.getComponent({ name: 'GalleryPanel' })
     expect(GalleryPanelComp.isVisible()).toBe(true)
   })
+})
+
+describe('GalleryPanel', () => {
+  beforeEach(() => {
+    startId = 0
+  })
+  it('Should show GalleryPanel attributes', async () => {
+    const testComponent = defineComponent({
+      components: {
+        Gallery,
+        GalleryItem,
+        GalleryPanel,
+        GalleryCaption,
+      },
+      setup: () => ({ value: ref(true) }),
+      template: `
+      <Gallery v-model="value">
+        <GalleryPanel>
+          <GalleryCaption />
+        </GalleryPanel>
+        <GalleryItem src="img1" title="title-0">A</GalleryItem>
+        <GalleryItem src="img2" title="title-1">B</GalleryItem>
+      </Gallery>
+      `,
+    })
+    const wrapper = mount(testComponent)
+    await nextTick()
+    const GalleryPanelComp = wrapper.getComponent({ name: 'GalleryPanel' })
+    expect(GalleryPanelComp.isVisible()).toBe(true)
+
+    expect(GalleryPanelComp.attributes('role')).toBe('dialog')
+    expect(GalleryPanelComp.attributes('tabindex')).toBe('0')
+    expect(GalleryPanelComp.attributes('aria-modal')).toBe('true')
+    expect(GalleryPanelComp.attributes('aria-labelby')).toBe('title-0')
+  })
+})
+
+describe('GalleryItem', () => {
+  beforeEach(async () => {
+    startId = 0
+  })
+
+  it('Should id on Gallery item', async () => {
+    const testComponent = defineComponent({
+      components: {
+        Gallery,
+        GalleryItem,
+      },
+      setup: () => ({ value: ref(true) }),
+      template: `
+      <Gallery v-model="value">
+        <GalleryItem src="img1" title="title-0">A</GalleryItem>
+      </Gallery>
+      `,
+    })
+    const wrapper = mount(testComponent)
+    expect(wrapper.getComponent({ name: 'GalleryItem' }).attributes('id')).toBe('gallery-item-0')
+    expect(wrapper.getComponent({ name: 'GalleryItem' }).attributes('tabindex')).toBe('0')
+  })
+})
+
+describe('GalleryImage', () => {
+  beforeEach(() => {
+    startId = 0
+  })
+
+  it('Should render atrributes', async () => {
+    const testComponent = defineComponent({
+      components: {
+        Gallery,
+        GalleryItem,
+        GalleryPanel,
+        GalleryImage,
+        GalleryCaption,
+      },
+      setup: () => ({ value: ref(true) }),
+      template: `
+      <Gallery v-model="value">
+        <GalleryPanel>
+          <GalleryImage />
+          <GalleryCaption />
+        </GalleryPanel>
+        <GalleryItem src="img1" title="title-0">A</GalleryItem>
+        <GalleryItem src="img2" title="title-1">B</GalleryItem>
+      </Gallery>
+      `,
+    })
+    const wrapper = mount(testComponent)
+
+    const GalleryPanelComp = wrapper.getComponent({ name: 'GalleryPanel' })
+    expect(GalleryPanelComp.isVisible()).toBe(true)
+    await nextTick()
+    
+    const GalleryImageElement = wrapper.find('img')
+    expect(GalleryImageElement.exists()).toBe(true)
+    expect(GalleryImageElement.attributes('src')).toBe('img1')
+    expect(GalleryImageElement.attributes('title')).toBe('title-0')
+    expect(GalleryImageElement.attributes('width')).toBe('0')
+    expect(GalleryImageElement.attributes('height')).toBe('0')
+    
+    // await flushPromises() 
+    // console.log(wrapper.html())
+  })
+})
+
+describe('GalleryCaption', () => {
+  beforeEach(() => {
+    startId = 0
+  })
+  it('Should render atrributes', async () => {
+    const testComponent = defineComponent({
+      components: {
+        Gallery,
+        GalleryItem,
+        GalleryPanel,
+        GalleryImage,
+        GalleryCaption,
+      },
+      setup: () => ({ value: ref(true) }),
+      template: `
+      <Gallery v-model="value">
+        <GalleryPanel>
+          <GalleryImage />
+          <GalleryCaption />
+        </GalleryPanel>
+        <GalleryItem src="img1" title="title-0">A</GalleryItem>
+        <GalleryItem src="img2" title="title-1">B</GalleryItem>
+      </Gallery>
+      `,
+    })
+    const wrapper = mount(testComponent)
+
+    const GalleryPanelComp = wrapper.getComponent({ name: 'GalleryPanel' })
+    expect(GalleryPanelComp.isVisible()).toBe(true)
+    await nextTick()
+
+    const GalleryCaptionElement = wrapper.find('figcaption')
+    expect(GalleryCaptionElement.exists()).toBe(true)
+    expect(GalleryCaptionElement.attributes('id')).toBe('title-0')
+    expect(GalleryCaptionElement.attributes('aria-live')).toBe('assertive')
+    expect(GalleryCaptionElement.text()).toBe('title-0')
+  })
+})
+
+describe('ButtonInteraction', () => {
+  // Close, Next, Previous
+  it('Should close GalleryPanel by slot prop close function', async () => {
+    const testComponent = defineComponent({
+      components: {
+        Gallery,
+        GalleryItem,
+        GalleryPanel,
+        GalleryCaption,
+      },
+      setup: () => ({ value: ref(true) }),
+      template: `
+      <Gallery v-model="value" v-slot:default="{ close }">
+        <GalleryPanel id="gallaery-panel">
+          <button @click="close()"></button>
+        </GalleryPanel>
+        <GalleryItem src="img1" title="title-0">A</GalleryItem>
+        <GalleryItem src="img2" title="title-1">B</GalleryItem>
+      </Gallery>
+      `,
+    })
+    const wrapper = mount(testComponent)
+    expect(wrapper.find('#gallaery-panel').exists()).toBe(true)
+
+    const button = wrapper.find('button')
+    expect(button.isVisible()).toBe(true)
+
+    await button.trigger('click')
+    expect(wrapper.find('#gallaery-panel').exists()).toBe(false)
+  })
 
   it('Should close GalleryPanel if static render and manage by slot prop close function', async () => {
     const testComponent = defineComponent({
@@ -143,31 +316,10 @@ describe('Gallery', () => {
   })
 })
 
-describe('GalleryItem', () => {
-  beforeEach(async () => {
+describe('KeyboardInteraction', () => {
+  beforeEach(() => {
     startId = 0
   })
-
-  it('Should id on Gallery item', async () => {
-    const testComponent = defineComponent({
-      components: {
-        Gallery,
-        GalleryItem,
-      },
-      setup: () => ({ value: ref(true) }),
-      template: `
-      <Gallery v-model="value">
-        <GalleryItem src="img1" title="title-0">A</GalleryItem>
-      </Gallery>
-      `,
-    })
-    const wrapper = mount(testComponent)
-    expect(wrapper.getComponent({ name: 'GalleryItem' }).attributes('id')).toBe('gallery-item-0')
-    expect(wrapper.getComponent({ name: 'GalleryItem' }).attributes('tabindex')).toBe('0')
-  })
-})
-
-describe('KeyboardInteraction', () => {
   describe('GalleryIten', () => {
     it('Should show GalleryPanel when press enter', async () => {
       const testComponent = defineComponent({
@@ -186,7 +338,7 @@ describe('KeyboardInteraction', () => {
       })
       const wrapper = mount(testComponent)
       expect(wrapper.getComponent({ name: 'GalleryPanel' }).isVisible()).toBe(false)
-      await wrapper.find('#gallery-item-1').trigger('keydown', { key: 'Enter' })
+      await wrapper.find('#gallery-item-0').trigger('keydown', { key: 'Enter' })
 
       expect(wrapper.getComponent({ name: 'GalleryPanel' }).isVisible()).toBe(true)
     })
@@ -216,7 +368,6 @@ describe('KeyboardInteraction', () => {
     expect(wrapper.find('#gallaery-panel').exists()).toBe(true)
 
     await GalleryPanelComp.trigger('keydown', { key: 'Escape' })
-    // console.log(wrapper.html())
     expect(wrapper.find('#gallaery-panel').exists()).toBe(false)
   })
 
@@ -247,7 +398,6 @@ describe('KeyboardInteraction', () => {
 
     await GalleryPanelComp.trigger('keydown', { key: 'ArrowRight' })
     expect(wrapper.find('#current').text()).toBe('img2')
-    // console.log(wrapper.html())
 
     await GalleryPanelComp.trigger('keydown', { key: 'ArrowUp' })
     expect(wrapper.find('#current').text()).toBe('img3')
