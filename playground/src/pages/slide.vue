@@ -1,11 +1,16 @@
 <template>
-  <Gallery v-slot:default="{ items, currentIndex }">
-    <GalleryPanel class="fixed flex items-center justify-center inset-0 z-50 overflow-hidden">
+  <Gallery v-slot:default="{ open, items }">
+    <GalleryPanel v-if="open" class="fixed flex items-center justify-center inset-0 z-50 overflow-hidden" static>
       <div class="fixed bg-black/70 backdrop-blur-sm inset-0 -z-10" aria-hidden="true" />
-      <GallerySwipe class="flex duration-200">
-        <div v-for="{ id, src } in items" :key="id" class="flex-[0_0_100%] flex justify-center">
-          <img :src="src" />
-        </div>
+      <GallerySwipe class="flex duration-200 w-full pl-[10%] gap-2">
+        <GallerySwipeItem v-for="{ id, src } in items" :key="id" class="flex-[0_0_90%] flex justify-start items-center">
+          <img
+            :src="src"
+            :class="[
+              'block shadow-md',
+            ]"
+          />
+        </GallerySwipeItem>
       </GallerySwipe>
     </GalleryPanel>
     <div class="grid grid-cols-2 grid-rows-2 grid-flow-col gap-2 max-w-xl mx-auto overflow-hidden rounded-xl">
