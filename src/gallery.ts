@@ -60,6 +60,7 @@ interface SwipeItemData {
 
 interface ApiSwipeDefinition {
   registerSwipeItem(item: SwipeItemData): void
+  unregisterSwipeItem(id: string): void
 }
 
 let GalleryContext = Symbol('GalleryContext') as InjectionKey<ApiDefinition>
@@ -450,6 +451,10 @@ export const GallerySwipe = defineComponent({
 
     const swipeApi = {
       registerSwipeItem: (item: SwipeItemData) => swipeItems.value.push(item),
+      unregisterSwipeItem: (id: string) => {
+        let idx = swipeItems.value.findIndex((item) => item.id === id)
+        if (idx !== -1) swipeItems.value.splice(idx, 1)
+      },
     }
 
     provide(GallerySwipeContext, swipeApi)
@@ -481,6 +486,7 @@ export const GallerySwipeItem = defineComponent({
     const id = getId()
 
     onMounted(() => swipeApi.registerSwipeItem({ id, itemRef: swipeItemRef.value }))
+    onUnmounted(() => swipeApi.unregisterSwipeItem(id))
 
     return () => {
       return render({
