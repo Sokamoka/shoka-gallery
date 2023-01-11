@@ -9,6 +9,7 @@ import {
   GallerySwipe,
   GallerySwipeItem,
 } from './gallery'
+export { Direction } from './gallery'
 
 export { Gallery, GalleryItem, GalleryPanel, GalleryImage, GalleryCaption, GallerySwipe, GallerySwipeItem }
 

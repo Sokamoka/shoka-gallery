@@ -1,7 +1,6 @@
 import {
   h,
   ref,
-  watch,
   toRefs,
   inject,
   provide,
@@ -17,11 +16,14 @@ import {
   ComputedRef,
   InjectionKey,
 } from 'vue'
-import { unrefElement, useSwipe, useResizeObserver } from '@vueuse/core'
-import { SwipeDirection } from '@vueuse/core'
 import { getId } from './utils/id'
 import { render } from './utils/render'
 import { useGallerySwipe } from './composables/use-gallery-swipe'
+
+export enum Direction {
+  Previous = 'PREVIOUS',
+  Next = 'NEXT',
+}
 
 interface GalleryItem {
   id: string
@@ -41,6 +43,7 @@ interface ApiDefinition {
   currentIndex: Ref<number>
   isStartIndex: ComputedRef<boolean>
   isEndIndex: ComputedRef<boolean>
+  direction: Ref<Direction>
 
   registerImage(item: GalleryItem): void
   unregisterImage(id: string): void
@@ -57,10 +60,6 @@ interface SwipeItemData {
 
 interface ApiSwipeDefinition {
   registerSwipeItem(item: SwipeItemData): void
-}
-
-function nextFrame(cb: () => void) {
-  requestAnimationFrame(() => requestAnimationFrame(cb))
 }
 
 let GalleryContext = Symbol('GalleryContext') as InjectionKey<ApiDefinition>
@@ -104,11 +103,12 @@ export const Gallery = defineComponent({
     },
   },
 
-  setup(props, { emit, slots, attrs }) {
+  setup(props, { emit, slots, attrs, expose }) {
     const items = ref<GalleryItem[]>([])
     const isOpen = ref<boolean>(props.modelValue)
     const currentIndex = ref<number>(0)
     const isLoading = ref<boolean>(false)
+    const direction = ref<Direction>(Direction.Next)
 
     const currentItem = computed<GalleryItem>(() => items.value[currentIndex.value])
 
@@ -116,6 +116,7 @@ export const Gallery = defineComponent({
       items,
       isOpen,
       isLoading,
+      direction,
       currentItem,
       currentIndex,
       isStartIndex: computed(() => currentIndex.value === 0),
@@ -137,15 +138,19 @@ export const Gallery = defineComponent({
       },
       next() {
         if (currentIndex.value === items.value.length - 1) return
+        direction.value = Direction.Next
         currentIndex.value = currentIndex.value + 1
       },
       prev() {
         if (currentIndex.value === 0) return
+        direction.value = Direction.Previous
         currentIndex.value = currentIndex.value - 1
       },
     }
 
     provide(GalleryContext, api)
+
+    expose({ next: api.next, prev: api.prev })
 
     return () => {
       const slot = {
@@ -156,6 +161,7 @@ export const Gallery = defineComponent({
         isStartIndex: api.isStartIndex.value,
         isEndIndex: api.isEndIndex.value,
         currentItem: currentItem.value,
+        direction: direction.value,
         close: () => api.close(),
         next: () => api.next(),
         prev: () => api.prev(),
@@ -226,6 +232,7 @@ export const GalleryPanel = defineComponent({
         isEndIndex: api.isEndIndex.value,
         isLoading: api.isLoading.value,
         currentItem: api.currentItem.value,
+        direction: api.direction.value,
         close: () => api.close(),
         next: () => api.next(),
         prev: () => api.prev(),
@@ -438,7 +445,7 @@ export const GallerySwipe = defineComponent({
 
   setup(props, { slots, attrs }) {
     const api = useGalleryContext('GallerySwipe')
-    
+
     const swipeItems = ref<SwipeItemData[]>([])
 
     const swipeApi = {
@@ -450,8 +457,9 @@ export const GallerySwipe = defineComponent({
     const { target, styles } = useGallerySwipe(swipeItems, api.currentIndex, api.next, api.prev)
 
     return () => {
+      const slot = { items: api.items.value }
       const ourProps = { ref: target, style: styles.value }
-      return render({ ourProps, attrs, theirProps: { as: props.as }, slot: {}, slots, name: 'GallerySwipe' })
+      return render({ ourProps, attrs, theirProps: { as: props.as }, slot, slots, name: 'GallerySwipe' })
     }
   },
 })

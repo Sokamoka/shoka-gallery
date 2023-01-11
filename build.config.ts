@@ -9,6 +9,7 @@ export default defineBuildConfig({
   ],
   externals: ['vue'],
   declaration: true,
+  failOnWarn: false,
 
   rollup: {
     emitCJS: true,
