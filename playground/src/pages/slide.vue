@@ -3,7 +3,7 @@ import { onMounted, ref } from 'vue'
 import { useSwipe, SwipeDirection } from '@vueuse/core'
 import { Gallery, Direction } from 'shoka-gallery'
 
-const gallerylRef = ref<InstanceType<typeof Gallery> | null>(null)
+const gallerylRef = ref<InstanceType<typeof Gallery> | null | any>(null)
 const targetRef = ref(null)
 
 const { isSwiping } = useSwipe(targetRef, {

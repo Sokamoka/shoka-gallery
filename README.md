@@ -133,6 +133,22 @@ import { Gallery, GalleryItem, GalleryPanel, GalleryImage, GalleryCaption } from
 
 ### GalleryCaption
 
-| Prop    | Default      | Description                                            |
-| ------- | ------------ | ------------------------------------------------------ |
+| Prop   | Default      | Description                                            |
+| ------ | ------------ | ------------------------------------------------------ |
 | **as** | 'figcaption' | The element or component the Gallery should render as. |
+
+### GallerySwipe
+
+| Prop   | Default | Description                                            |
+| ------ | ------- | ------------------------------------------------------ |
+| **as** | 'div'   | The element or component the Gallery should render as. |
+
+| Slot Prop | Type      | Description      |
+| --------- | --------- | ---------------- |
+| **items** | 'Boolean' | Image is loading |
+
+### GallerySwipeItem
+
+| Prop   | Default | Description                                            |
+| ------ | ------- | ------------------------------------------------------ |
+| **as** | 'div'   | The element or component the Gallery should render as. |
