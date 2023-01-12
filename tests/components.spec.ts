@@ -203,16 +203,13 @@ describe('GalleryImage', () => {
     const GalleryPanelComp = wrapper.getComponent({ name: 'GalleryPanel' })
     expect(GalleryPanelComp.isVisible()).toBe(true)
     await nextTick()
-    
+
     const GalleryImageElement = wrapper.find('img')
     expect(GalleryImageElement.exists()).toBe(true)
     expect(GalleryImageElement.attributes('src')).toBe('img1')
     expect(GalleryImageElement.attributes('title')).toBe('title-0')
     expect(GalleryImageElement.attributes('width')).toBe('0')
     expect(GalleryImageElement.attributes('height')).toBe('0')
-    
-    // await flushPromises() 
-    // console.log(wrapper.html())
   })
 })
 

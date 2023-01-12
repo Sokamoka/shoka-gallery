@@ -18,6 +18,12 @@ import {
 } from 'vue'
 import { getId } from './utils/id'
 import { render } from './utils/render'
+import { useGallerySwipe } from './composables/use-gallery-swipe'
+
+export enum Direction {
+  Previous = 'PREVIOUS',
+  Next = 'NEXT',
+}
 
 interface GalleryItem {
   id: string
@@ -37,6 +43,7 @@ interface ApiDefinition {
   currentIndex: Ref<number>
   isStartIndex: ComputedRef<boolean>
   isEndIndex: ComputedRef<boolean>
+  direction: Ref<Direction>
 
   registerImage(item: GalleryItem): void
   unregisterImage(id: string): void
@@ -46,12 +53,35 @@ interface ApiDefinition {
   next(): void
 }
 
+interface SwipeItemData {
+  id: string
+  itemRef: HTMLElement | null
+}
+
+interface ApiSwipeDefinition {
+  registerSwipeItem(item: SwipeItemData): void
+  unregisterSwipeItem(id: string): void
+}
+
 let GalleryContext = Symbol('GalleryContext') as InjectionKey<ApiDefinition>
+
+let GallerySwipeContext = Symbol('GallerySwipeContext') as InjectionKey<ApiSwipeDefinition>
 
 function useGalleryContext(component: string) {
   let context = inject(GalleryContext, null)
   if (context === null) {
     let err = new Error(`<${component} /> is missing a parent <Gallery /> component.`)
+    // @ts-ignore
+    if (Error.captureStackTrace) Error.captureStackTrace(err, useGalleryContext)
+    throw err
+  }
+  return context
+}
+
+function useGallerySwipeContext(component: string) {
+  let context = inject(GallerySwipeContext, null)
+  if (context === null) {
+    let err = new Error(`<${component} /> is missing a parent <GallerySwipe /> component.`)
     // @ts-ignore
     if (Error.captureStackTrace) Error.captureStackTrace(err, useGalleryContext)
     throw err
@@ -74,11 +104,12 @@ export const Gallery = defineComponent({
     },
   },
 
-  setup(props, { emit, slots, attrs }) {
+  setup(props, { emit, slots, attrs, expose }) {
     const items = ref<GalleryItem[]>([])
     const isOpen = ref<boolean>(props.modelValue)
-    const currentIndex = ref(0)
-    const isLoading = ref(false)
+    const currentIndex = ref<number>(0)
+    const isLoading = ref<boolean>(false)
+    const direction = ref<Direction>(Direction.Next)
 
     const currentItem = computed<GalleryItem>(() => items.value[currentIndex.value])
 
@@ -86,6 +117,7 @@ export const Gallery = defineComponent({
       items,
       isOpen,
       isLoading,
+      direction,
       currentItem,
       currentIndex,
       isStartIndex: computed(() => currentIndex.value === 0),
@@ -107,15 +139,19 @@ export const Gallery = defineComponent({
       },
       next() {
         if (currentIndex.value === items.value.length - 1) return
+        direction.value = Direction.Next
         currentIndex.value = currentIndex.value + 1
       },
       prev() {
         if (currentIndex.value === 0) return
+        direction.value = Direction.Previous
         currentIndex.value = currentIndex.value - 1
       },
     }
 
     provide(GalleryContext, api)
+
+    expose({ next: api.next, prev: api.prev })
 
     return () => {
       const slot = {
@@ -126,6 +162,7 @@ export const Gallery = defineComponent({
         isStartIndex: api.isStartIndex.value,
         isEndIndex: api.isEndIndex.value,
         currentItem: currentItem.value,
+        direction: direction.value,
         close: () => api.close(),
         next: () => api.next(),
         prev: () => api.prev(),
@@ -196,6 +233,7 @@ export const GalleryPanel = defineComponent({
         isEndIndex: api.isEndIndex.value,
         isLoading: api.isLoading.value,
         currentItem: api.currentItem.value,
+        direction: api.direction.value,
         close: () => api.close(),
         next: () => api.next(),
         prev: () => api.prev(),
@@ -393,5 +431,72 @@ export const GalleryCaption = defineComponent({
             api.currentItem.value?.title
           )
         : null
+  },
+})
+
+export const GallerySwipe = defineComponent({
+  name: 'GallerySwipe',
+
+  props: {
+    as: {
+      type: [String, Object],
+      default: 'div',
+    },
+  },
+
+  setup(props, { slots, attrs }) {
+    const api = useGalleryContext('GallerySwipe')
+
+    const swipeItems = ref<SwipeItemData[]>([])
+
+    const swipeApi = {
+      registerSwipeItem: (item: SwipeItemData) => swipeItems.value.push(item),
+      unregisterSwipeItem: (id: string) => {
+        let idx = swipeItems.value.findIndex((item) => item.id === id)
+        if (idx !== -1) swipeItems.value.splice(idx, 1)
+      },
+    }
+
+    provide(GallerySwipeContext, swipeApi)
+
+    const { target, styles } = useGallerySwipe(swipeItems, api.currentIndex, api.next, api.prev)
+
+    return () => {
+      const slot = { items: api.items.value }
+      const ourProps = { ref: target, style: styles.value }
+      return render({ ourProps, attrs, theirProps: { as: props.as }, slot, slots, name: 'GallerySwipe' })
+    }
+  },
+})
+
+export const GallerySwipeItem = defineComponent({
+  name: 'GallerySwipeItem',
+
+  props: {
+    as: {
+      type: [String, Object],
+      default: 'div',
+    },
+  },
+
+  setup(props, { slots, attrs }) {
+    const swipeApi = useGallerySwipeContext('GallerySwipeItem')
+
+    const swipeItemRef = ref<SwipeItemData['itemRef']>(null)
+    const id = getId()
+
+    onMounted(() => swipeApi.registerSwipeItem({ id, itemRef: swipeItemRef.value }))
+    onUnmounted(() => swipeApi.unregisterSwipeItem(id))
+
+    return () => {
+      return render({
+        ourProps: { ref: swipeItemRef },
+        attrs,
+        theirProps: { as: props.as },
+        slot: {},
+        slots,
+        name: 'GallerySwipeItem',
+      })
+    }
   },
 })

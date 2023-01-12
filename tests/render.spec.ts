@@ -56,7 +56,6 @@ describe('Render validation', () => {
       `,
     })
     const wrapper = mount(testComponent)
-    // console.log(wrapper.html())
     expect(wrapper.html()).toBe('<div>Hello world</div>\n' + '<div>Hello world</div>')
   })
 

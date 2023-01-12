@@ -1,8 +1,17 @@
 import { App } from 'vue'
 
-import { Gallery, GalleryItem, GalleryPanel, GalleryImage, GalleryCaption } from './gallery'
+import {
+  Gallery,
+  GalleryItem,
+  GalleryPanel,
+  GalleryImage,
+  GalleryCaption,
+  GallerySwipe,
+  GallerySwipeItem,
+} from './gallery'
+export { Direction } from './gallery'
 
-export { Gallery, GalleryItem, GalleryPanel, GalleryImage, GalleryCaption }
+export { Gallery, GalleryItem, GalleryPanel, GalleryImage, GalleryCaption, GallerySwipe, GallerySwipeItem }
 
 export function ShokaGallery(app: App) {
   app.component('Gallery', Gallery)
@@ -10,4 +19,6 @@ export function ShokaGallery(app: App) {
   app.component('GalleryPanel', GalleryPanel)
   app.component('GalleryImage', GalleryImage)
   app.component('GalleryCaption', GalleryCaption)
+  app.component('GallerySwipe', GallerySwipe)
+  app.component('GallerySwipeItem', GallerySwipeItem)
 }
