@@ -80,18 +80,19 @@ import { Gallery, GalleryItem, GalleryPanel, GalleryImage, GalleryCaption } from
 | **modelValue** | false   | Whether the Gallery is open or not.                    |
 | **as**         | 'div'   | The element or component the Gallery should render as. |
 
-| Slot Prop        | Type      | Description                         |
-| ---------------- | --------- | ----------------------------------- |
-| **open**         | 'Boolean' | Whether the Gallery is open or not. |
-| **items**        | 'Array'   | Images                              |
-| **isLoading**    | 'Boolean' | Image is loading                    |
-| **currentIndex** | 'Number'  | Current image index                 |
-| **isStartIndex** | 'Boolean' | Current image is first              |
-| **isEndIndex**   | 'Boolean' | Current image is last               |
-| **currentItem**  | 'Object'  | Current image object                |
-| **close**        | 'event'   | Call for closing gallery panel      |
-| **next**         | 'event'   | Call for step next image            |
-| **prev**         | 'event'   | Call for step previous image        |
+| Slot Prop        | Type        | Description                         |
+| ---------------- | ----------- | ----------------------------------- |
+| **open**         | 'Boolean'   | Whether the Gallery is open or not. |
+| **items**        | 'Array'     | Images                              |
+| **isLoading**    | 'Boolean'   | Image is loading                    |
+| **currentIndex** | 'Number'    | Current image index                 |
+| **isStartIndex** | 'Boolean'   | Current image is first              |
+| **isEndIndex**   | 'Boolean'   | Current image is last               |
+| **currentItem**  | 'Object'    | Current image object                |
+| **direction**    | 'PREV/NEXT' | Direction of image change           |
+| **close**        | 'event'     | Call for closing gallery panel      |
+| **next**         | 'event'     | Call for step next image            |
+| **prev**         | 'event'     | Call for step previous image        |
 
 ### GalleryItem
 
@@ -114,17 +115,18 @@ import { Gallery, GalleryItem, GalleryPanel, GalleryImage, GalleryCaption } from
 | ------ | -------- | ------------------------------------------------------ |
 | **as** | 'figure' | The element or component the Gallery should render as. |
 
-| Slot Prop        | Type      | Description                    |
-| ---------------- | --------- | ------------------------------ |
-| **isLoading**    | 'Boolean' | Image is loading               |
-| **items**        | 'Array'   | Images                         |
-| **currentIndex** | 'Number'  | Current image index            |
-| **isStartIndex** | 'Boolean' | Current image is first         |
-| **isEndIndex**   | 'Boolean' | Current image is last          |
-| **currentItem**  | 'Object'  | Current image object           |
-| **close**        | 'event'   | Call for closing gallery panel |
-| **next**         | 'event'   | Call for step next image       |
-| **prev**         | 'event'   | Call for step previous image   |
+| Slot Prop        | Type        | Description                    |
+| ---------------- | ----------- | ------------------------------ |
+| **isLoading**    | 'Boolean'   | Image is loading               |
+| **items**        | 'Array'     | Images                         |
+| **currentIndex** | 'Number'    | Current image index            |
+| **isStartIndex** | 'Boolean'   | Current image is first         |
+| **isEndIndex**   | 'Boolean'   | Current image is last          |
+| **currentItem**  | 'Object'    | Current image object           |
+| **direction**    | 'PREV/NEXT' | Direction of image change      |
+| **close**        | 'event'     | Call for closing gallery panel |
+| **next**         | 'event'     | Call for step next image       |
+| **prev**         | 'event'     | Call for step previous image   |
 
 ### GalleryImage
 
@@ -145,9 +147,9 @@ import { Gallery, GalleryItem, GalleryPanel, GalleryImage, GalleryCaption } from
 | ------ | ------- | ------------------------------------------------------ |
 | **as** | 'div'   | The element or component the Gallery should render as. |
 
-| Slot Prop | Type      | Description      |
-| --------- | --------- | ---------------- |
-| **items** | 'Boolean' | Image is loading |
+| Slot Prop | Type      | Description         |
+| --------- | --------- | ------------------- |
+| **items** | 'Boolean' | Gallery swipe items |
 
 ### GallerySwipeItem
 
