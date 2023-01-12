@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import { useSwipe, SwipeDirection } from '@vueuse/core'
 import { Gallery, Direction } from 'shoka-gallery'
 
@@ -15,10 +15,6 @@ const { isSwiping } = useSwipe(targetRef, {
     }
     gallerylRef.value?.next()
   },
-})
-
-onMounted(() => {
-  console.log(gallerylRef.value)
 })
 </script>
 

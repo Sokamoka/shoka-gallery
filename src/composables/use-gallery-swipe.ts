@@ -39,9 +39,7 @@ export function useGallerySwipe(
       left.value = Number((startPos.value - lengthX.value).toFixed())
     },
     onSwipeEnd(e: TouchEvent, direction: SwipeDirection) {
-      // console.log(currentItem.value?.offsetWidth)
       if (Math.abs(lengthX.value) >= (currentItem.value?.offsetWidth ?? 0) / 2) {
-        // console.log(direction)
         if (direction === SwipeDirection.LEFT) {
           next()
         }
@@ -56,8 +54,6 @@ export function useGallerySwipe(
   })
 
   const { stop: stopResizeObserver } = useResizeObserver(target, (entries) => {
-    console.log('RESIZE:', entries)
-    // console.log(calculetePosition())
     left.value = calculetePosition()
   })
 

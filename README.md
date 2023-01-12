@@ -6,6 +6,8 @@ Super simple a11y headless image gallery for Vue users
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/edit/shoka-gallery-examples?file=src/components/HelloWorld.vue)
 
+More examples: [playground](https://github.com/Sokamoka/shoka-gallery/tree/main/playground/src/pages)
+
 ## Installation
 
 ```sh
