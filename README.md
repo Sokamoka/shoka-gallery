@@ -1,6 +1,6 @@
 # Shoka Gallery
 
-Super simple a11y headless image gallery for Vue users
+Super simple a11y headless image gallery for Vue 3 users
 
 ## Example
 
