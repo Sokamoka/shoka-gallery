@@ -1,3 +1,5 @@
+let id = 0
 export function getId() {
-  return self.crypto.randomUUID()
+  return id++
+  // return crypto.randomUUID()
 }

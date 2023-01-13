@@ -1,11 +1,11 @@
+import { fileURLToPath } from 'node:url'
 import { defineNuxtConfig } from 'nuxt/config'
-import MyModule from '..'
 
 export default defineNuxtConfig({
+  alias: {
+    'shoka-gallery': fileURLToPath(new URL('../../../src/index.ts', import.meta.url))
+  },
   modules: [
-    MyModule
-  ],
-  myModule: {
-    addPlugin: true
-  }
+    '../src/module.ts'
+  ]
 })

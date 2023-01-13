@@ -1,24 +1,38 @@
 import { fileURLToPath } from 'url'
-import { defineNuxtModule, addPlugin, createResolver } from '@nuxt/kit'
+import { defineNuxtModule, createResolver, addComponent } from '@nuxt/kit'
 
-export interface ModuleOptions {
-  addPlugin: boolean
-}
+const components = [
+  'Gallery',
+  'GalleryPanel',
+  'GalleryItem',
+  'GalleryImage',
+  'GalleryCaption',
+  'GallerySwipe',
+  'GallerySwipeItem',
+]
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
-    name: 'my-module',
-    configKey: 'myModule'
-  },
-  defaults: {
-    addPlugin: true
-  },
-  setup (options, nuxt) {
-    if (options.addPlugin) {
-      const { resolve } = createResolver(import.meta.url)
-      const runtimeDir = fileURLToPath(new URL('./runtime', import.meta.url))
-      nuxt.options.build.transpile.push(runtimeDir)
-      addPlugin(resolve(runtimeDir, 'plugin'))
+    name: 'nuxt-shoka-gallery',
+    configKey: 'ShokaGallery',
+    compatibility: {
+      nuxt: '^3.0.0'
     }
-  }
+  },
+
+  defaults: {},
+
+  setup(options, nuxt) {
+    const runtimeDir = fileURLToPath(new URL('./runtime', import.meta.url))
+    nuxt.options.build.transpile.push(runtimeDir)
+
+    for (const component of components) {
+      addComponent({
+        name: component,
+        export: component,
+        filePath: 'shoka-gallery',
+        global: true,
+      })
+    }
+  },
 })

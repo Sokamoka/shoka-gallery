@@ -1,6 +1,7 @@
 {
-  "name": "my-module",
-  "version": "1.0.0",
+  "name": "nuxt-shoka-gallery",
+  "description": "Shoka Gallery integration for Nuxt",
+  "version": "0.0.0",
   "license": "MIT",
   "type": "module",
   "exports": {
