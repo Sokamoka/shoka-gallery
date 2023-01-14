@@ -1,0 +1,42 @@
+{
+  "name": "nuxt-shoka-gallery",
+  "description": "Shoka Gallery integration for Nuxt",
+  "version": "0.0.1",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/module.mjs",
+      "require": "./dist/module.cjs"
+    }
+  },
+  "main": "./dist/module.cjs",
+  "types": "./dist/types.d.ts",
+  "files": [
+    "dist"
+  ],
+  "author": {
+    "name": "Ákos Stégner",
+    "email": "akos.stegner@gmail.com"
+  },
+  "scripts": {
+    "prepack": "nuxt-module-build",
+    "dev": "nuxi dev playground",
+    "dev:build": "nuxi build playground",
+    "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground"
+  },
+  "dependencies": {
+    "@nuxt/kit": "^3.0.0"
+  },
+  "peerDependencies": {
+    "shoka-gallery": ">=1.0.0-alpha.7"
+  },
+  "devDependencies": {
+    "@nuxt/module-builder": "^0.2.1",
+    "@nuxt/schema": "^3.0.0",
+    "@nuxtjs/eslint-config-typescript": "^12.0.0",
+    "eslint": "^8.29.0",
+    "nuxt": "^3.0.0"
+  },
+  "packageManager": "pnpm@7.22.0"
+}
