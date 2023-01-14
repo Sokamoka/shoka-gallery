@@ -3,6 +3,7 @@
   "version": "1.0.0-alpha.6",
   "description": "Super simple headless image gallery",
   "type": "module",
+  "packageManager": "pnpm@7.22.0",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",

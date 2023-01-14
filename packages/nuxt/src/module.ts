@@ -11,7 +11,7 @@ const components = [
   'GallerySwipeItem',
 ]
 
-export default defineNuxtModule<ModuleOptions>({
+export default defineNuxtModule({
   meta: {
     name: 'nuxt-shoka-gallery',
     configKey: 'ShokaGallery',

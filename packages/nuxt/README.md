@@ -1,4 +1,12 @@
-# Nuxt Module
+# Shoka Gallery Nuxt Module
+
+```js
+{
+    modules: [
+        'nuxt-shoka-gallery'
+    ],
+}
+```
 
 ## Development
 
