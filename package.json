@@ -1,7 +1,7 @@
 {
   "name": "shoka-gallery",
-  "version": "1.0.0-alpha.6",
-  "description": "Super simple headless image gallery",
+  "version": "1.0.0-alpha.7",
+  "description": "Super simple a11y compatible headless image gallery",
   "type": "module",
   "packageManager": "pnpm@7.22.0",
   "exports": {
