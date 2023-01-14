@@ -1,7 +1,7 @@
 {
   "name": "nuxt-shoka-gallery",
   "description": "Shoka Gallery integration for Nuxt",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "type": "module",
   "exports": {
@@ -26,9 +26,7 @@
     "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground"
   },
   "dependencies": {
-    "@nuxt/kit": "^3.0.0"
-  },
-  "peerDependencies": {
+    "@nuxt/kit": "^3.0.0",
     "shoka-gallery": ">=1.0.0-alpha.7"
   },
   "devDependencies": {
