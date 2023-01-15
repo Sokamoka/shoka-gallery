@@ -61,7 +61,31 @@ import { Gallery, GalleryItem, GalleryPanel, GalleryImage, GalleryCaption } from
 </template>
 ```
 
+## Nuxt
+
+### Install:
+
+```sh
+npm install nuxt-shoka-gallery
+or
+pnpm add nuxt-shoka-gallery
+```
+
+### Usage:
+Add `nuxt-shoka-gallery` to modules in `nuxt.config.js`
+
+```js
+export default defineNuxtConfig({
+  modules: ['nuxt-shoka-gallery']
+})
+
+```
+
+## Focus management
+
 ## Keyboard interaction
+
+To navigate through the **GalleryItem** using `Tab` keys and open the **GalleryPanel** by pressing the `Enter` key.
 
 | Command           | Description                                                |
 | ----------------- | ---------------------------------------------------------- |
